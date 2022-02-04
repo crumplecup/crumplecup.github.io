@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://crumplecup.hopto.org/</loc>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/categories/</loc>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/categories/latex/</loc>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/latex-flow/</loc>
+        <lastmod>2022-02-01</lastmod>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/posts/</loc>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/posts/latex-flow/</loc>
+        <lastmod>2022-02-01</lastmod>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/tags/</loc>
+    </url>
+    <url>
+        <loc>https://crumplecup.hopto.org/tags/info/</loc>
+    </url>
+</urlset>

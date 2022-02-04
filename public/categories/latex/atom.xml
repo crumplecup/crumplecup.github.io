@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title> - Latex</title>
+	<link href="https://crumplecup.hopto.org/categories/latex/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://crumplecup.hopto.org"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2022-02-01T00:00:00+00:00</updated>
+	<id>https://crumplecup.hopto.org/categories/latex/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Latex Flow</title>
+		<published>2022-02-01T00:00:00+00:00</published>
+		<updated>2022-02-01T00:00:00+00:00</updated>
+		<link href="https://crumplecup.hopto.org/latex-flow/" type="text/html"/>
+		<id>https://crumplecup.hopto.org/latex-flow/</id>
+		<content type="html">&lt;h1 id=&quot;latex-better-than-reinventing-the-wheel&quot;&gt;Latex - Better Than Reinventing the Wheel&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;better-than-reinventing-the-wheel&quot;&gt;Better Than Reinventing the Wheel&lt;&#x2F;h2&gt;
+&lt;p&gt;Latex first entered onto my radar in graduate school as research papers began to strain my relationship with MS Word. First I used a number of desktop publishing programs, starting with Adobe InDesign and trying a few open source alternatives, and these options offer better presentation, but at the cost of program size and complexity.  Support for features like auto-numbering figures and tables was non-existent, making it an ultimate non-starter for research.  When I poked around on the internet looking for what other people used to draft and edit their thesis, Latex came up multiple times. &amp;quot;This is what the professionals use&amp;quot; I thought, and resolved to figure it out.&lt;&#x2F;p&gt;
+&lt;p&gt;My first negative impression was not struggling to get it to compile (that would come later). Rather, the verbosity and boilerplate quality of the syntax immediately put me off, in the same way that seeing the html tags add a level of visual complexity that can make it hard to follow the content on a website. It wasn&#x27;t the complexity, though, so much as the extra typing that really stuck in my craw. I flirt enough with RSI as it is. These notes are the changes that I made to my development environment to reduce computer-related stress by minimizing the need for repetitive typing and mouse-use.&lt;&#x2F;p&gt;
+&lt;p&gt;Features of this setup include:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;autocompletion for frequently-used code blocks&lt;&#x2F;li&gt;
+&lt;li&gt;syntax checking for paired braces etc.&lt;&#x2F;li&gt;
+&lt;li&gt;spell-checking and syntax highlighting&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+</feed>

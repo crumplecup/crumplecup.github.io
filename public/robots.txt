@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://crumplecup.hopto.org/sitemap.xml
