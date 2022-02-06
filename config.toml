@@ -8,7 +8,8 @@ compile_sass = true
 build_search_index = true
 
 # theme
-theme = "after-dark"
+#theme = "after-dark"
+theme = "blow"
 
 taxonomies = [
 	{name = "categories", feed = true},
@@ -29,3 +30,47 @@ after_dark_menu = [
     {url = "$BASE_URL/categories", name = "Categories"},
     {url = "$BASE_URL/tags", name = "Tags"},
 ]
+
+# config blow theme
+[extra.lang]
+items = [
+    { lang = "en", links = [
+        { base_url = "/", name = "English" },
+    ] },
+]
+
+[extra.navbar]
+items = [
+    { lang = "en", links = [
+        { url = "/", name = "Home" },
+        { url = "/categories", name = "Articles" },
+        { url = "/tags", name = "Subjects" },
+	{ url = "https://crumplecup.hopto.org", name = "About Me" },
+    ] },
+]
+title = "Strange Inflections"
+
+[extra.sidebar]
+items = [
+    { lang = "en", links = [
+        { url = "/categories", name = "Articles" },
+        { url = "/tags", name = "Subjects" },
+	{ url = "https://crumplecup.hopto.org", name = "About Me" },
+    ] },
+]
+
+[extra.index]
+title = "Strange Inflections"
+image = "/knowles_df.jpg"
+
+[extra.social]
+email = "erik.w.rose@gmail.com"
+gitlab = ""
+github = "https://github.com/crumplecup"
+linkedin = "https://www.linkedin.com/in/erik-rose-73749a26/"
+twitter = "https://www.twitter.com/crumplecup"
+facebook = "https://www.facebook.com/crumplecup"
+
+[extra.default_author]
+name = "Erik Rose"
+avatar = "/avatar.png"
