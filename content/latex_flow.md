@@ -129,7 +129,30 @@ This results in the following expansion, with my cursor centered within the bloc
 
 ![Abstract Snippet After](/snip_abs_after.png)
 
-The keywords `enum`, `item` and `desc` similarly create the opening and closing blocks for the enumerate, itemize and description environments, respectively. These lists default to having a single `\item`, and the keyword `it` expands to add an additional `\item`.
+The keywords `enum`, `item` and `desc` similarly create the opening and closing blocks for the enumerate, itemize and description environments, respectively. These lists default to having a single `\item`, and the keyword `it` expands to add an additional `\item`. For code blocks that include bracketed optional arguments, pressing the delete key will remove the optional parameters. For instance, the `pac` keyword expands to the line:
+
+![Package Snippet Before](/snip_pac1.png)
+
+The first cursor position snaps to the inside of the brackets for the optional package argument. Here the delete key will remove the brackets as well as the text. Escaping moves the cursor to the next user-defined parameter, in this case the package name (which I have changed to `fontspec`), and escaping again advances the cursor to immediately after the closing brace:
+
+![Package Snippet After](/snip_pac2.png)
+
+The `fig` keyword is one of the more useful snippets in my workflow, because it includes a sensible level of default formatting, including centering, a label, and image width capped to 80% of page width. Here I have edited the default image name to `mypic.png` to illustrate that the figure caption and label both mirror the selected image name, with the start of the caption capitalized. This is not a useful feature to me for captions, but I use it regularly to set label names based on image file names:
+
+![Figure Snippet](/snip_fig.png)
+
+Note that when there is user-defined text in snippet code blocks, the cursor moves through a predefined sequence of fields to receive input from the user. At this time, Vim in is insert mode, and anything you type will appear on the keyboard verbatim. This can be a surprise if you start trying to navigate using the home row and create a figure named `jjjll`. For options, a sensible default appears (e.g. `width=0.8\linewidth`) whereas field names tend to be descriptive (e.g. `\label{fig:name}`. If you type something, this will overwrite the default value. Escaping advances the cursor, either committing your changes or preserving the default as-is. Vim returns to command mode only after escaping through all the user-generated fields in the invoked snippet.
+
+The `cha`, `sec`, `sub`, `ssub` and `par` keywords expand to chapter, section, subjection, sub-subsection and paragraph blocks respectively, starting with the cursor positioned inside the title braces. Variants ending in asterisks (e.g. `sec*`) expand to unnumbered blocks. Although the keyword `tab` will generate an empty tabular environment, I prefer to the use the `gentbl` keyword, followed by the dimensions of the table in format `WIDTHxHEIGHT`. For producing a table with three rows and columns, I would enter the following text in insert mode, followed by the tab key to trigger snippet expansion:
+
+![Table Generator Snippet Trigger](/snip_gentbl.png)
+
+This expands to the following code, with cursor points at each blank field:
+
+![Table Generator Snippet Result](/snip_gentbl2.png)
+
+
+
 
 ## Key Maps {#keymaps}
 
