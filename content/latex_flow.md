@@ -18,8 +18,20 @@ Table of Contents:
     * [-* Syntax Checking](#lsp) 
     * [-* Compiling and Viewing](#vimtex) 
     * [-* Using Snippets](#snippets)
+  * [- Configuring for Latex](#config)
+    * [-* Spell Checking](#spell)
+    * [-* Clipboard Integration](#clipboard)
 * [Key Mapping](#keymaps)
 
+> \
+> *True goodness is like water. 
+> Water is good for everything. 
+> It doesn't compete. \
+> It goes right to the low loathsome places, 
+> and so finds the way.* \
+>  - --Lao Tsu *Tao Te Ching* No. 8
+> \
+> \
 
 # Editor of Choice {#editor}
 
@@ -179,7 +191,7 @@ On my system, an interesting hiccup occurs when installing `vim-snippets`, where
 
 ![Duplicate Snippet Menu](/vim_snippets_dupe.png)
 
-The reason this occurred is that the snippet file was copied into two places on my system, once in the home directory under `.vim/plugged/vim-snippets/snippets` and again in the general file system in `/usr/share/vimfiles/snippets`. If you run into a similar issue with duplicate snippets, you can change the name of the file in your home directory to a name other than `tex.snippets`, which should prevent it from associating with .tex files. For instance, on my machine I use the following line of code to the resolve the issue:
+The reason this occurred is that the snippet file was copied into two places on my system, once in the home directory under `.vim/plugged/vim-snippets/snippets` and again in the general file system in `/usr/share/vimfiles/snippets`. If you run into a similar issue with duplicate snippets, you can change the name of the file in your home directory to a name other than `tex.snippets`, which should prevent it from associating with .tex files. For instance, on my machine I use the following lines of code to the resolve the issue:
 
 ```fish
 cd ~/.vim/plugged/vim-snippets/snippets
@@ -190,6 +202,11 @@ mv tex.snippets tex.snippets.bk
 
 The [vim-surround](https://github.com/tpope/vim-surround) plugin offers extended control over features surrounding words and sentences. While website authors working with html and css are the target audience, I often find that I want to surround a word with quotes, backticks, brackets or braces *after the fact*, and the `vim-surround` plugin allows me to wrap a word using a few keystrokes instead of fiddling around with the arrow keys or the mouse. It also enables changing surrounding delimiters, for example from quotes to braces, especially useful for modifying longer sentences or even paragraphs. I use the default key mapping as described on their web page.
 
+## Configuring for Latex {#config}
+
+### Spell Checking {#spell}
+
+### Clipboard Integration {#clipboard}
 
 ## Key Maps {#keymaps}
 

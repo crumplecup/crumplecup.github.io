@@ -45,7 +45,7 @@ items = [
         { url = "/", name = "Home" },
         { url = "/categories", name = "Articles" },
         { url = "/tags", name = "Subjects" },
-	{ url = "https://crumplecup.hopto.org", name = "About Me" },
+	{ url = "/about/resume", name = "About Me" },
     ] },
 ]
 title = "Strange Inflections"
@@ -55,7 +55,7 @@ items = [
     { lang = "en", links = [
         { url = "/categories", name = "Articles" },
         { url = "/tags", name = "Subjects" },
-	{ url = "https://crumplecup.hopto.org", name = "About Me" },
+	{ url = "/about/resume", name = "About Me" },
     ] },
 ]
 
