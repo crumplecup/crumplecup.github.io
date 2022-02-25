@@ -9,18 +9,26 @@ author = "Erik Rose"
 
 +++
 
-# Latex - Better Than Reinventing the Wheel
+# Latex Flow: Editing Latex in NeoVim {#intro}
+
+[23.6%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of Rust programmers use Vim as their code editor, as well as [24.2%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of developers on the latest Stack Overflow survey.
 
 Table of Contents:
 
-* [Editor of Choice](#editor)
+* [Editor of Choice - NeoVim](#editor)
   * [- Plugin Management](#plugins)
     * [-* Syntax Checking](#lsp) 
     * [-* Compiling and Viewing](#vimtex) 
+    * [-* Latex Grammar](#grammar)
+    * [-* Latex Navigation](#nav)
     * [-* Using Snippets](#snippets)
   * [- Configuring for Latex](#config)
     * [-* Spell Checking](#spell)
     * [-* Clipboard Integration](#clipboard)
+* [Terminal of Choice - Alacritty](#terminal)
+  * [ - Configuring Alacritty](#alacritty)
+  * [ - Shell of Choice - Fish](#fish)
+* [Multiplexer of Choice - Zellij](#multiplex)
 * [Key Mapping](#keymaps)
 
 > \
@@ -33,11 +41,11 @@ Table of Contents:
 > \
 > \
 
-# Editor of Choice {#editor}
+# Editor of Choice - NeoVim {#editor}
 
 Previously I used [RStudio](https://www.rstudio.com/) for R and [IntelliJ](https://www.jetbrains.com/idea/) for everything else code related. These programs are feature rich, but bloated and heavy, consuming significant amounts of RAM. Latex editors that I tried, including [Scribus](https://www.scribus.net/), are light-weight but not feature-rich enough. [NeoVim](https://neovim.io/) is a current iteration of the storied Vim text editor, modernized to include many of the features of IntelliJ, VSCode and other IDEs, while remaining light-weight, responsive and powerful. Vim works very differently from other text editors, and this can be a good thing, but the lack of common ground with prior experience can slow down the learning process, especially at first.  I recommend the article [Learn Vim for the Last Time](https://danielmiessler.com/study/vim/) by Daniel Miessler, which makes the case for why to use Vim better than I can.
 
-Instead of a settings menu, Vim uses a configuration file, allowing maximum flexibility in customization. But if you are not used to mucking around in configuration files, getting your settings just right will take trial and error. On my system with Neovim, the location in is ~/.config/nvim/init.vim. Learning to use the default configuration is helpful when you are working on new or random machines, but selective customization is key to an ergonomic and productive flow.
+Instead of a settings menu, Vim uses a configuration file, allowing maximum flexibility in customization. But if you are not used to mucking around in configuration files, getting your settings just right will take trial and error. On my system with NeoVim, the location in is ~/.config/nvim/init.vim. Learning to use the default configuration is helpful when you are working on new or random machines, but selective customization is key to an ergonomic and productive flow.
 
 ## Plugin Management {#plugins}
 
@@ -58,7 +66,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'lervag/vimtex' " compile and display latex
 Plug 'SirVer/ultisnips' " snippet engine
 Plug 'honza/vim-snippets' " more snippets
-Plug 'tpope/vim-surround' " hotkeys for surrounding tags and braces
 
 call plug#end()
 ```
@@ -111,6 +118,45 @@ nnoremap <space>e :VimtexView <CR> 	" spacebar + e opens pdf viewer
 nnoremap <space>w :VimtexCompile <CR>	" spacebar + w starts/stops compiler
 ```
 {{ nlist() }} Key bindings for viewing and compiling latex files.
+
+### Latex Grammar {#grammar}
+
+Commands in Vim offer a powerful framework to navigate and manipulate text. A basic grasp of navigation from the home row keys, and the ability to enter insert mode are sufficient to begin using Vim as a text editor, but familiarity with the grammar of Vim commands can enable more efficient actions and increase productivity. The best introduction that I have read to Vim's grammar is Daniel Miessler's [Learn Vim for the Last Time](https://danielmiessler.com/study/vim/), which deserves another mention here. Whenever the task I am working on feels repetitive, I start to wonder if there isn't a Vim command I have not discovered yet that can make my life a bit easier.
+
+Vimtex extends the types of text objects that Vim recognizes to include latex commands (c), delimiters (d), environments (e) and equations ($), which the user can modify using the inside (i), around (a), and surrounding (s) adjectives, and manipulate using the delete (d), change (c) and yank (y) verbs, as shown in the following table:
+
+| Verbs | | Adjectives | | Nouns | |
+| --- | --- | --- | --- | --- | --- |
+| d | delete | i | inside | c | command |
+| c | change | a | around | d | delimiter |
+| y | yank | s | surrounding | e | environment |
+| | | | | $ | equation |
+
+A common use case in my workflow occurred while reformatting a chapter from my thesis for submission to a journal for publication. Citations in the thesis are organized in a `.bib` file, but this journal wanted citations listed in `\phantomsection` blocks at the end of the article. With the `.bib` file open on one pane, I would copy a correctly formatted citation in the article, then change the author, title and publisher for each new reference to resemble the following:
+
+```tex
+\phantomsection
+\label{name} Author, Name. (Year) \textit{Title} 
+	\textit{Publisher} \textit{Volume} (Number), pages.
+```
+
+For the author field, which may contain multiple commas and periods to accommodate multiple authors, the field terminates in a date of publication wrapped in parenthesis. The command `ct(` ("change to open parenthesis") deletes the current field up until the publication date begins, and places the cursor in insert mode. Unless there are a significant number of contributors, I am likely to retype the names, rather than copy and paste. The number representing the year counts as a single word in Vim's grammar, so the command `ciw` ("change inside word") deletes the current number and places the cursor in insert mode to type a new year. If only a single number is off it can be faster to use the swap (s) key. These are examples of basic Vim commands that come in handy for me.
+
+The title and publisher fields, however, come wrapped in braces. While Vim is sensitive to delimiters, and the command `ci{` ("change inside braces") will delete the content within the braces as expected, neither it nor its cousin `ci"` ("change inside quotes") are very ergonomic. Here the delimiter (d) noun from `vimtex` comes in handy. The title field is often long and technically-worded, making manual retyping prone to error, so I prefer to copy directly from the `.bib` file and paste into an empty set of braces. First I remove the old title using the command `did` ("delete inside delimiter"), which clears the contents of the braces while leaving the cursor in command mode. From there, I can directly issue the command to paste the title into the braces (see the section on [Copying and Pasting](#clipboard).
+
+
+### Latex Navigation {#nav}
+
+The `vimtex` plugin also extends navigation commands for Latex-specific use cases. The `[[` and `]]` commands move the cursor backwards or forwards by section. This can be a useful way to navigate during the review process, especially when restructuring the table of contents. The `[m` and `]m` commands move to the prior or next Latex environment, while the `[n` and `]n` commands jump between equations. Jumping environments can be helpful while referencing figures, to move between the figure caption and the text block referring to the figure. Moving between equations is also helpful during the review process, especially while trying to codify notation between sections. The following table shows a breakdown of the navigation grammar for `vimtex`:
+
+| Verb | | Beginning Nouns | | Ending Nouns | |
+| --- | --- | --- | --- | --- | --- |
+| `[` | previous | `[` | section start | `]` | section end |
+| `]` | next | `m` | environment start | `M` | environment end |
+| | | `n` | equation start | `N` | equation end |
+| | | `r` | frame start | `R` | frame end |
+| | | `*` | comment | | |
+
 
 ### Using Snippets {#snippets}
 
@@ -198,16 +244,215 @@ cd ~/.vim/plugged/vim-snippets/snippets
 mv tex.snippets tex.snippets.bk
 ```
 
-### Delimiter Management
-
-The [vim-surround](https://github.com/tpope/vim-surround) plugin offers extended control over features surrounding words and sentences. While website authors working with html and css are the target audience, I often find that I want to surround a word with quotes, backticks, brackets or braces *after the fact*, and the `vim-surround` plugin allows me to wrap a word using a few keystrokes instead of fiddling around with the arrow keys or the mouse. It also enables changing surrounding delimiters, for example from quotes to braces, especially useful for modifying longer sentences or even paragraphs. I use the default key mapping as described on their web page.
-
 ## Configuring for Latex {#config}
+
+My `init.vim` configuration file has the following Latex-specific settings:
+
+```vim
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+let g:latex_indent_enabled = 0 " disable auto-indenting
+let g:latex_fold_envs = 0 " disable line wrapping
+let g:latex_fold_sections = []
+```
+
+The section changing the tex flavor to `latex` is copied straight from Stack Overflow, along with the explanatory comment, which may or may not be correct. I have never experimented with the consequences of not using it. Automatic indenting is a bit of a backfire in Latex, inserting additional indents into lists and generally being a nuisance, so I have disabled it by setting the value to zero. Likewise, I have disabled the default line wrapping for environments and sections. For collaborative documents, I like to save line wrapping for the end, to avoid tracking line breaks during the drafting process. Feel free to experiment here.
+
 
 ### Spell Checking {#spell}
 
+Spell check is a basic functionality offered by email and cell phone messaging apps, even fields in web submission forms, and so getting it up and running in Vim is an important feature to compete as a Latex editor. Even for those of us good at spelling, fatigue and haste can contribute a surprising number of errors, and it helps to have the computer double-checking the work. After some investigation into why misspelled words were not highlighted in my display, I discovered that spell-check was enabled and working in Vim the whole time, I just did not understand how to use it. The following four lines of `init.vim` contain all the spell-check specific code:
+
+```vim
+" see https://jdhao.github.io/2019/04/29/nvim_spell_check/
+" spell-check
+set spell spelllang=en,cjk
+" limit spelling suggestions to n
+set spellsuggest=best,7
+" map spell-check toggle
+nnoremap <leader>y :set spell!<cr>
+" highlight misspelled words in red
+hi SpellBad cterm=underline guifg=Red
+```
+
+According to the link referenced in the top comment, including `ckj` will prevent Asian characters from being flagged as misspelled. Then if I quote my favorite poet, Lao Tsu, the block will not be highlighted as an error. Otherwise, I believe English `en` is the default language. The `spellsuggest` field sorts spelling suggestions according to what matches `best`, and I specify seven options for each error. My leader key is currently mapped to the comma key, so `,y` calls the `:set spell` command, which turns spell-check on or off. I do not get a lot of use setting spell-check to a toggle, because in Latex editing I leave spell-check on all the time. Who wouldn't?
+
+Spelling errors normally display as a wiggly underline, and this has evolved over time into a stable cross-platform convention. For my choice of color palette in the terminal, a dark mode, the colors display in GUI mode (as opposed to text mode). I could not elaborate on the distinction, except to say that the wiggly underline is not available in my specific terminal configuration, so instead I map the highlighting of spelling errors from underline to the color red using the line `hi SpellBad cterm=underline guifg=Red`. Until I made this change I was unable to see spelling errors highlighted, even with spell-check toggled on.
+
+Using the `s` key following the `[` or `]` brackets moves the cursor to the previous or next spelling error. The command `z=` will bring up a list of suggested corrections, while `zg` will enter the flagged word into the dictionary, so it will no longer appear as an error. The following table summarizes commands related to spell-check:
+
+| Command | Action |
+| --- | --- |
+| `[s` | to previous error |
+| `]s` | to next error |
+| `z=` | show fix options |
+| `zg` | add to dictionary |
+
+If I type the sentence:
+
+![Spelling Mistake](/spell_accom1.png)
+
+Then the misspelled word becomes highlighted in red. Pressing `[s` sends the cursor back to the misspelled word, and `z=` enters the options menu for spelling alternatives, as follows:
+
+![Spelling Options](/spell_accom2.png)
+
+
 ### Clipboard Integration {#clipboard}
 
-## Key Maps {#keymaps}
+Copy and paste is another basic functionality that needs to work in any credible editor. Vim offers the yank (`y`) and paste (`p`) commands, and these work as expected within a single instance of the program. The yank command (as well as delete `d`) copies the selected text into a buffer. The user can store text in multiple buffers, which I have not found much use, but I often want to paste the contents of this buffer to another program, and this I cannot do, even for another instance of Vim. This can also be a problem when trying to copy text into Vim from another program, like a web browser, because the text buffer in Vim does not check the contents of the desktop clipboard. 
 
-The following lines are a curated selection from config files I found on the web. The comments above indicate the intended effect.
+On Linux, I call the xsel command to copy or paste from the clipboard, with copying mapped to `<space>+c` and pasting mapped to `<space>+p`, using the following code:
+
+```vim
+" clipboard integration
+noremap <space>p :read !xsel --clipboard --output<cr>
+noremap <space>c :w !xsel -ib<cr><cr>
+```
+
+On MacOS, enable copy and paste from the clipboard using the following line in your `init.vim` (from [Alan Smith](https://www.alanwsmith.com/posts/20eojqbbmsua--copy-and-paste-between-neovimvim-and-other-apps-on-mac-os)):
+
+```vim
+set clipboard=unnamed
+```
+
+Instead of calling `xsel`, MacOS users will want to use the `pbcopy` and `pbpaste` [commands](https://osxdaily.com/2007/03/05/manipulating-the-clipboard-from-the-command-line/) (via [Stack Overflow](https://stackoverflow.com/questions/28857592/xsel-o-equivalent-for-os-x)).
+
+Running the command `:CheckHealth` will print a diagnostic for the clipboard, indicating if it is enabled. On my machine the output is as follows:
+
+![Check Health Clipboard](/check_health_clipboard.png)
+
+# Terminal of Choice - Alacritty {#terminal}
+
+NeoVim opens in the terminal, and so the terminal application you use can greatly impact the editing experience. [Alacritty](https://alacritty.org/) is currently [#8](https://itsfoss.com/linux-terminal-emulators/) on ItsFOSS's top 14 terminal programs, and [#1](https://linuxhint.com/best_7_linux_terminals/) at linuxhunt.com's list of top seven terminals, which notes that it has been the most trending linux terminal since its debut in 2017. A main selling point is being cross-platform - it should work without issue on MacOS and Windows. Initially, I got interested in Alacritty because it is written in Rust, the same language I use for doing research. But Alacritty is a terminal, and even the configuration file is in `yaml` format and not `toml`, so I wouldn't learn any Rust by using it. However, it integrates well with my shell, multiplexer, and editor, and has several features I have grown to like.
+
+## Configuring Alacritty {#alacritty}
+
+The configuration file for Alacritty on linux in `~/.config/alacritty/alacritty.yml`. One of the things I like about Alacritty is that I do not have to change much to get a setup I like. Accessing the terminal history using scrollback is a key feature for me, and if it is not set by default, the following lines will create a scrollback buffer that will hold up to 10,000 lines.
+
+```yaml
+scrolling:
+# Maximum number of lines in the scrollback buffer.
+  # Specifying '0' will disable scrolling.
+  history: 10000
+```
+
+To adjust the window opacity, amend the following lines in `alacritty.yml`:
+
+```yaml
+# Background opacity
+#
+# Window opacity as a floating point number from `0.0` to `1.0`.
+# The value `0.0` is completely transparent and `1.0` is opaque.
+window:
+  opacity : 0.85
+```
+
+The default color scheme is a dark mode, and the only tweak I have made is to darken the yellow to increase legibility:
+
+```yaml
+  # Normal colors
+  normal:
+    black:   '#1d1f21'
+    red:     '#cc6666'
+    green:   '#b5bd68'
+    yellow:  '#ffd900' # darker, more readable mustard
+      # yellow:  '#f0c674' # older lighter, sun yellow
+    blue:    '#81a2be'
+    magenta: '#b294bb'
+    cyan:    '#8abeb7'
+    white:   '#c5c8c6'
+```
+
+To initiate a new work session, I like to start a new terminal instance, and for my terminal multiplexer to open by default. The following lines in `alacritty.yml` will open [Zellij](https://zellij.dev/) on start, and set the shell to [Fish](https://fishshell.com/):
+
+```yaml
+shell:
+  program: /usr/bin/zellij
+  args:
+    - options
+    - --default-shell 
+    - fish 
+```
+
+On MacOS the `program` path will be `~/.cargo/bin/zellij` if you have installed Zellij using `cargo`.
+
+## Shell of Choice - Fish {#fish}
+
+I typically invoke NeoVim from the command line by typing `nvim` followed by a file path name. NeoVim will create an empty file at the location if none exists. The default command line shell is bash, and I still switch to bash when copying arcane scripts from Stack Overflow, because Fish references environmental variables with slightly different grammar, but overall I like the addition of tab completion and pretty colors.
+
+Compare opening a research paper in the Fish shell, where I can either use the right arrow key to accept the suggested path completion based on my history, or press tab to open a completion menu below, as shown here:
+
+![Fish nvim](/fish_nvim2.png)
+
+Bash also offers tab completion, but without foreshadowing. Pressing tab once will expand the path name, and a second tab will print a path menu, which looks as follows in our example:
+
+![Bash nvim](/bash_nvim2.png)
+
+I know which I prefer.
+
+Recently, I tried using [nushell](https://www.nushell.sh/), following the [blog post](https://dev.to/yjdoc2/completely-oxidizing-my-terminal-setup-43d8) by YJDoc2. Although the shell worked in isolation on my machine, when integrating with Zellij it opened multiple terminals (flooding my system), and I was unable to diagnose the issue or mitigate the problem. Fish is [#5](https://linuxhint.com/top-5-open-source-shells-linux/) on the top five terminal shells from linuxhint.com, whereas fosslinux.com lauds the [Zsh shell](https://zsh.sourceforge.io/) for "brilliant autocompletion", and Fish does not even make the list, so maybe I am missing out by not giving it a try.
+
+
+# Multiplexer of Choice - Zellij {#multiplex}
+
+Initially I used [tmux](https://github.com/tmux/tmux/wiki) for organizing multiple open terminals, and I enjoy the ability to sort my screens into new windows or additional panes without the use of the mouse. [Zellij](https://zellij.dev/) improves the user interface by displaying a hotkey menu at the bottom of the window, making navigation more intuitive:
+
+![Zellij Menu](/zellij_menu.png)
+
+The control key triggers the majority of Zellij commands, with a context-dependent menu opening on the second line based upon which mode the user selects. The pane mode manages multiple prompts within a single window, while the tab mode manages prompts in multiple windows. The alt key triggers navigation of panes and tabs using the same home row keys as Vim.
+
+Even when I am focused on writing new content, I am likely to leave the snippet file open as a reference. When copying and pasting from another file, in my case from a bibliography file to an article, I open the reference file in a third pane. Unrelated workflow goes in additional tabs, and I can visually track the active tab using the indicator at the top of the window:
+
+![Zellij Workspace](/zellij_workspace.png)
+
+The active terminal is highlighted in green. When accessing pane, tab, resize or any of the other modes using the control key followed by the appropriate trigger, the active terminal becomes orange and the context menu changes to show available commands. Typically, pressing enter is sufficient to drop out of this command mode and go back to typing into the prompt.
+
+The documentation details how to modify keybindings and color themes in `~/.config/zellij/config.yaml`, but I have not adjusted any of the default settings. I have already set the colors in `alacritty.yml`, and because the user interface for Zellij is so well thought-out, I leave the key bindings as-is, and adjust my key maps in Vim so they do not conflict. I find myself wishing NeoVim offered a similarly visual menu of the available hotkey commands, but a terminal multiplexer covers a relatively narrow range of functions, and I am not sure how a visual menu could adapt to the degree of customization that key bindings receive in a typical Vim configuration file.
+
+
+# Key Mapping {#keymaps}
+
+Since NeoVim operates inside a multiplexer inside my terminal, I have to take care that the random key maps that I copy from the internet do not reuse any mappings set in Zellij. Generally, I find the `control` and `alt` keys come heavily loaded as hot keys, with some plugins adding new mappings by defaults. The `space` bar is my favorite command leader because it often has no use in Vim command mode, yet is ergonomic to use (being the home key of the thumb). You can specify a key of choice as `mapleader`, and then refer to it in mappings as the `<leader>` key. The `space` bar, `control` and `alt` are natural leaders, so I refer to them by name, but I like to set the `mapleader` as a catch-all for commands that do not map to a named leader. Using the key word `<leader>` to trigger commands allows me to experiment with alternate configurations by changing the single line where I designate the `mapleader` (currently set to the comma key):
+
+```vim
+" set <leader> key
+let mapleader = ","
+
+" change Ctrl+j to Esc
+nnoremap <C-j> <Esc>
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
+snoremap <C-j> <Esc>
+xnoremap <C-j> <Esc>
+cnoremap <C-j> <C-c>
+onoremap <C-j> <Esc>
+lnoremap <C-j> <Esc>
+tnoremap <C-j> <Esc>
+```
+
+My favorite key map, and the one I miss the quickest when using default Vim, is setting `<ctrl>+j` equivalent to hitting the escape key. I find putting the escape key on the home row ergonomic and intuitive. The character salad of remap statements refer to different modes, and help make the behaviour of the `<ctrl>+j` combination consistent in different settings.
+
+Some commands, like write (`:w`) and quit (`:q`) are such common use cases that I find it helpful to map the semicolon to the colon, allowing me to enter commands without using the shift key. Since I mapped the commands to move the cursor to the beginning or end of a line to the home keys `H` and `L` respectively, I make frequent use of them.
+
+```vim
+" avoid <shift> when typing commands
+nnoremap ; : " pressing ; reads as :
+
+map H ^ " pressing H moves cursor to beginning of line
+map L $ " pressing L moves cursor to end of line
+
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+```
+
+For small documents, I start at the beginning (`gg`) or end (`G`), and scroll up or down by half pages using `<ctrl>+u` and `<ctrl>+d` to arrive at the area of interest. But as a text grows in size and complexity, this method becomes increasingly inefficient. The `CocList outline` function, which I have mapped to `<space>+o`, produces a list of sections, subjections, figures, tables and equations, which the user can navigate to using the arrow keys for selection, or by searching for a text string:
+
+![CocList outline](/coclist_outline.png)
+
+My `init.vim` takes heavy inspiration from the [configuration](https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim) file of Jon Gjenset, from the [Crust of Rust](https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa) series.
+
+
+
