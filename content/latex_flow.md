@@ -1,36 +1,15 @@
 +++
-title = "Latex Flow"
+title = "LaTeX Flow"
 date = 2022-02-25
 [taxonomies]
-categories = ["Latex"]
+categories = ["LaTeX"]
 tags = ["info"]
 [extra]
 author = "Erik Rose"
 
 +++
 
-# Latex Flow: Editing Latex in NeoVim {#intro}
-
-The [PYPL](https://pypl.github.io/IDE.html) index lists Visual Studio as the most popular download search with a 30.6% share, while IntelliJ ranks sixth with a 6.2% share, and Vim seems relatively obscure, ranking 12th with a 0.7% share. So why do [23.6%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of Rust programmers use Vim as their code editor, as well as [24.2%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of developers on the latest Stack Overflow survey?
-
-
-Table of Contents:
-
-* [Editor of Choice - NeoVim](#editor)
-  * [- Plugin Management](#plugins)
-    * [-* Syntax Checking](#lsp) 
-    * [-* Compiling and Viewing](#vimtex) 
-    * [-* Latex Grammar](#grammar)
-    * [-* Latex Navigation](#nav)
-    * [-* Using Snippets](#snippets)
-  * [- Configuring for Latex](#config)
-    * [-* Spell Checking](#spell)
-    * [-* Clipboard Integration](#clipboard)
-* [Terminal of Choice - Alacritty](#terminal)
-  * [ - Configuring Alacritty](#alacritty)
-  * [ - Shell of Choice - Fish](#fish)
-* [Multiplexer of Choice - Zellij](#multiplex)
-* [Key Mapping](#keymaps)
+# LaTeX Flow: Editing LaTeX in NeoVim {#intro}
 
 > \
 > *True goodness is like water. 
@@ -42,17 +21,43 @@ Table of Contents:
 > \
 > \
 
+The [PYPL](https://pypl.github.io/IDE.html) index lists Visual Studio as the most popular download search with a 30.6% share, and IntelliJ ranks sixth with a 6.2% share, yet Vim seems relatively obscure, ranking 12th with a 0.7% share. So why do [23.6%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of Rust programmers use Vim as their code editor, as well as [24.2%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of developers on the latest Stack Overflow survey?
+
+Having personally admired the flow of developers like Jon Gjenset using Vim on the [Crust of Rust](https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa) series, I started exploring and have become quite a fan. After making the switch as my primary code editor, I became curious if I could not also use Vim for producing PDF files using LaTeX. This is not an article about why Vim is awesome, or why you should use Vim, but it does explain *how* to use Vim to edit LaTeX documents. Setting up Vim as an editing environment can be an involved process, and I found myself pulling nuggets from several sites and cobbling together a Frankenstein configuration. This post consolidates the info from these various sources into a single reference for setting up a LaTeX workflow.
+
+Since the content is longer than average for a blog post, I have included links to the section headings:
+
+Table of Contents:
+
+* [Editor of Choice - NeoVim](#editor)
+  * [- Plugin Management](#plugins)
+    * [-* Syntax Checking](#lsp) 
+    * [-* Compiling and Viewing](#vimtex) 
+    * [-* LaTeX Grammar](#grammar)
+    * [-* LaTeX Navigation](#nav)
+    * [-* Using Snippets](#snippets)
+  * [- Configuring for LaTeX](#config)
+    * [-* Spell Checking](#spell)
+    * [-* Clipboard Integration](#clipboard)
+* [Terminal of Choice - Alacritty](#terminal)
+  * [ - Configuring Alacritty](#alacritty)
+  * [ - Shell of Choice - Fish](#fish)
+* [Multiplexer of Choice - Zellij](#multiplex)
+* [Key Mapping](#keymaps)
+
+##
+
 # Editor of Choice - NeoVim {#editor}
 
-Previously I used [RStudio](https://www.rstudio.com/) for R and [IntelliJ](https://www.jetbrains.com/idea/) for everything else code related. These programs are feature rich, but bloated and heavy, consuming significant amounts of RAM. Latex editors that I tried, including [Scribus](https://www.scribus.net/), are light-weight but not feature-rich enough. [NeoVim](https://neovim.io/) is a current iteration of the storied Vim text editor, modernized to include many of the features of IntelliJ, VSCode and other IDEs, while remaining light-weight, responsive and powerful. Vim works very differently from other text editors, and this can be a good thing, but the lack of common ground with prior experience can slow down the learning process, especially at first.  I recommend the article [Learn Vim for the Last Time](https://danielmiessler.com/study/vim/) by Daniel Miessler, which makes the case for why to use Vim better than I can.
+Previously I used [RStudio](https://www.rstudio.com/) for R and [IntelliJ](https://www.jetbrains.com/idea/) for everything else code related. These programs are feature rich, but bloated and heavy, consuming significant amounts of RAM. LaTeX editors that I tried, including [Scribus](https://www.scribus.net/), are light-weight but not feature-rich enough. [NeoVim](https://neovim.io/) is a current iteration of the storied Vim text editor, modernized to include many of the features of IntelliJ, VSCode and other IDEs, while remaining light-weight, responsive and powerful. Vim works very differently from other text editors, and this can be a good thing, but the lack of common ground with prior experience can slow down the learning process, especially at first.  I recommend the article [Learn Vim for the Last Time](https://danielmiessler.com/study/vim/) by Daniel Miessler, which makes the case for why to use Vim better than I can.
 
 Instead of a settings menu, Vim uses a configuration file, allowing maximum flexibility in customization. But if you are not used to mucking around in configuration files, getting your settings just right will take trial and error. On my system with NeoVim, the location in is ~/.config/nvim/init.vim. Learning to use the default configuration is helpful when you are working on new or random machines, but selective customization is key to an ergonomic and productive flow.
 
 ## Plugin Management {#plugins}
 
-The preamble of my init.vim file is the plugin invocation. Plugins extend the functionality of Vim for specific use cases. The [vim-plug](https://github.com/junegunn/vim-plug) plugin manager is popular and works without issue on my machine (it should also work on MacOS according to [this article](https://dev.to/dafloresdiaz/neovim-for-macos-3nk0)). The most relevant plugins for my latex workflow are [vim-tex](https://github.com/lervag/vimtex) for compiling tex files to pdfs and displaying them in a viewer, [ultisnips](https://github.com/SirVer/ultisnips) for snippet completion, and [vim-lsp](https://github.com/prabirshrestha/vim-lsp) for syntax checking.
+The preamble of my init.vim file is the plugin invocation. Plugins extend the functionality of Vim for specific use cases. The [vim-plug](https://github.com/junegunn/vim-plug) plugin manager is popular and works without issue on my machine (it should also work on MacOS according to [this article](https://dev.to/dafloresdiaz/neovim-for-macos-3nk0)). The most relevant plugins for my LaTeX workflow are [vim-tex](https://github.com/lervag/vimtex) for compiling tex files to pdfs and displaying them in a viewer, [ultisnips](https://github.com/SirVer/ultisnips) for snippet completion, and [vim-lsp](https://github.com/prabirshrestha/vim-lsp) for syntax checking.
 
-Using [vim-plug](https://github.com/junegunn/vim-plug) requires separate installation, although you should be able to copy and paste the necessary commands for your system from the instructions on the github site into your terminal. Once installed, use the following code at the start of init.vim to invoke the plugin manager and load the specified plugins {{ reflist() }}.
+Using [vim-plug](https://github.com/junegunn/vim-plug) requires separate installation, although you should be able to copy and paste the necessary commands for your system from the instructions on the github site into your terminal. Once installed, use the following code at the start of init.vim to invoke the plugin manager and load the specified plugins.
 
 ```vim
 " plugin manager junegunn/vim-plug
@@ -64,43 +69,36 @@ Plug 'mattn/vim-lsp-settings' " Installation helper
 Plug 'neovim/nvim-lspconfig'
 
 " text editing
-Plug 'lervag/vimtex' " compile and display latex
+Plug 'lervag/vimtex' " compile and display LaTeX
 Plug 'SirVer/ultisnips' " snippet engine
 Plug 'honza/vim-snippets' " more snippets
 
 call plug#end()
 ```
-{{ nlist() }} Plugin setup using vim-plug.
-
 
 The first time starting Vim up, run `:PlugInstall` from command mode to download and install the plugins on your machine. Remember to run this command again if you add a new plugin to the list at a later time.
 
 ### Syntax Checking {#lsp}
 
-The first time opening a file in .tex format, Vim will prompt you to install the Latex language server using the command `:LspInstallServer`. This is a helper function provided by the [vim-lsp-settings](https://github.com/mattn/vim-lsp-settings) plugin, and requires the vim-lsp plugin to also be present. The plugin is a one-stop-shop for programming languages, and will prompt the user when a new server is available that supports a given file type (confirm [Y] for installation). Most of the features available are for programming, rather than writing *per se*. The tab completion features of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) are of debatable value here, but it is part of my overall setup.
+The first time opening a file in .tex format, Vim will prompt you to install the LaTeX language server using the command `:LspInstallServer`. This is a helper function provided by the [vim-lsp-settings](https://github.com/mattn/vim-lsp-settings) plugin, and requires the vim-lsp plugin to also be present. The plugin is a one-stop-shop for programming languages, and will prompt the user when a new server is available that supports a given file type (confirm [Y] for installation). Most of the features available are for programming, rather than writing *per se*. The tab completion features of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) are of debatable value here, but it is part of my overall setup.
 
-The real value for Latex editing is from syntax checking, which prints compilation errors to the screen in real time, allowing the user to catch common syntax errors as they occur, rather than at compilation time. In the following example {{figref()}} I have commented out the closing center block, and the language server helpfully informs me I have mismatching environments. This is also useful for catching missing braces, and other common formatting errors.
+The real value for LaTeX editing is from syntax checking, which prints compilation errors to the screen in real time, allowing the user to catch common syntax errors as they occur, rather than at compilation time. In the following example, I have commented out the closing center block, and the language server helpfully informs me I have mismatching environments. This is also useful for catching missing braces, and other common formatting errors.
 
-| ![Syntax Checking \label{fig:1}][fig1] |
-|:---:|
-| {{ nfig() }} Compiler errors display on screen. |
-
-[fig1]: /lsp_syntax_check.png "Compiler errors display on screen." 
+![Syntax Checking \label{fig:1}](/lsp_syntax_check.png)
 
 ### Compiling and Viewing {#vimtex}
 
-The `vimtex` plugin provides functions for compiling and viewing .tex files. I like to select my own font for cover letters beyond the default serif and standard fonts, but the default compiler did not support the package I used for importing fonts, `fontspec`. The `lualatex` engine combined with the `nvr` compiler works without issue. The [mupdf](https://mupdf.com/) reader supports navigation from the home key row using the same key mappings as Vim, providing a seamless transition between the editing and viewing experience. Specify the viewer and compiler options using the following code {{ reflist() }}.
+The `vimtex` plugin provides functions for compiling and viewing .tex files. I like to select my own font for cover letters beyond the default serif and standard fonts, but the default compiler did not support the package I used for importing fonts, `fontspec`. The `luaLaTeX` engine combined with the `nvr` compiler works without issue. The [mupdf](https://mupdf.com/) reader supports navigation from the home key row using the same key mappings as Vim, providing a seamless transition between the editing and viewing experience. Specify the viewer and compiler options using the following code.
 
 ```vim
 " changed from defaults for use with the fontspec package
 let g:vimtex_compiler_progname = 'nvr'
-let g:vimtex_compiler_engine = 'lualatex'
+let g:vimtex_compiler_engine = 'luaLaTeX'
 " pdf viewer of choice
 let g:vimtex_view_general_viewer = 'mupdf'
 ```
-{{ nlist() }} Configuration options for the `vimtex` plugin.
 
-The language server is a little overly aggressive with specific warnings, tracked here as an [issue](https://github.com/lervag/vimtex/issues/2024). I have included the fix below {{ reflist() }}, pasted straight from the post to my `init.vim` file.
+The language server is a little overly aggressive with specific warnings, tracked here as an [issue](https://github.com/lervag/vimtex/issues/2024). I have included the fix below pasted straight from the post to my `init.vim` file:
 
 ```vim
 " prevents spurious warnings
@@ -109,22 +107,20 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Overfull',
       \]
 ```
-{{ nlist() }} Ignore these warnings related to underfull or overfull text lines.
 
-The `vimtex` plugin makes the functions `:VimtexCompile` and `:VimtexView` available as Vim commands. Typing these commands manually is not exactly ergonomic, so we map these commands to a select set of hotkeys as an added layer of convenience. In my case, I use the space bar followed by the `w` key start the compiler, which will build the pdf and open the viewer. The compiler stays open and updates upon changes, but I can stop and restart it by pressing `<space>+w` repeatedly. I like to quit the viewer when not in active use (using the `q` key in mupdf), and open a fresh instance when I am ready to review changes, using the space bar followed by the `e` key {{ reflist() }}. This prevents multiple instances from accumulating in the workspace, and ensures I do not accidentally review versions that are out-of-date.
+The `vimtex` plugin makes the functions `:VimtexCompile` and `:VimtexView` available as Vim commands. Typing these commands manually is not exactly ergonomic, so we map these commands to a select set of hotkeys as an added layer of convenience. In my case, I use the space bar followed by the `w` key start the compiler, which will build the pdf and open the viewer. The compiler stays open and updates upon changes, but I can stop and restart it by pressing `<space>+w` repeatedly. I like to quit the viewer when not in active use (using the `q` key in mupdf), and open a fresh instance when I am ready to review changes, using the space bar followed by the `e` key. This prevents multiple instances from accumulating in the workspace, and ensures I do not accidentally review versions that are out-of-date.
 
 ```vim
 " map vimtex view for rapid pdf display
 nnoremap <space>e :VimtexView <CR> 	" spacebar + e opens pdf viewer
 nnoremap <space>w :VimtexCompile <CR>	" spacebar + w starts/stops compiler
 ```
-{{ nlist() }} Key bindings for viewing and compiling latex files.
 
-### Latex Grammar {#grammar}
+### LaTeX Grammar {#grammar}
 
 Commands in Vim offer a powerful framework to navigate and manipulate text. A basic grasp of navigation from the home row keys, and the ability to enter insert mode are sufficient to begin using Vim as a text editor, but familiarity with the grammar of Vim commands can enable more efficient actions and increase productivity. The best introduction that I have read to Vim's grammar is Daniel Miessler's [Learn Vim for the Last Time](https://danielmiessler.com/study/vim/), which deserves another mention here. Whenever the task I am working on feels repetitive, I start to wonder if there isn't a Vim command I have not discovered yet that can make my life a bit easier.
 
-Vimtex extends the types of text objects that Vim recognizes to include latex commands (c), delimiters (d), environments (e) and equations ($), which the user can modify using the inside (i), around (a), and surrounding (s) adjectives, and manipulate using the delete (d), change (c) and yank (y) verbs, as shown in the following table:
+Vimtex extends the types of text objects that Vim recognizes to include LaTeX commands (c), delimiters (d), environments (e) and equations ($), which the user can modify using the inside (i), around (a), and surrounding (s) adjectives, and manipulate using the delete (d), change (c) and yank (y) verbs, as shown in the following table:
 
 | Verbs | | Adjectives | | Nouns | |
 | --- | --- | --- | --- | --- | --- |
@@ -146,9 +142,9 @@ For the author field, which may contain multiple commas and periods to accommoda
 The title and publisher fields, however, come wrapped in braces. While Vim is sensitive to delimiters, and the command `ci{` ("change inside braces") will delete the content within the braces as expected, neither it nor its cousin `ci"` ("change inside quotes") are very ergonomic. Here the delimiter (d) noun from `vimtex` comes in handy. The title field is often long and technically-worded, making manual retyping prone to error, so I prefer to copy directly from the `.bib` file and paste into an empty set of braces. First I remove the old title using the command `did` ("delete inside delimiter"), which clears the contents of the braces while leaving the cursor in command mode. From there, I can directly issue the command to paste the title into the braces (see the section on [Copying and Pasting](#clipboard).
 
 
-### Latex Navigation {#nav}
+### LaTeX Navigation {#nav}
 
-The `vimtex` plugin also extends navigation commands for Latex-specific use cases. The `[[` and `]]` commands move the cursor backwards or forwards by section. This can be a useful way to navigate during the review process, especially when restructuring the table of contents. The `[m` and `]m` commands move to the prior or next Latex environment, while the `[n` and `]n` commands jump between equations. Jumping environments can be helpful while referencing figures, to move between the figure caption and the text block referring to the figure. Moving between equations is also helpful during the review process, especially while trying to codify notation between sections. The following table shows a breakdown of the navigation grammar for `vimtex`:
+The `vimtex` plugin also extends navigation commands for LaTeX-specific use cases. The `[[` and `]]` commands move the cursor backwards or forwards by section. This can be a useful way to navigate during the review process, especially when restructuring the table of contents. The `[m` and `]m` commands move to the prior or next LaTeX environment, while the `[n` and `]n` commands jump between equations. Jumping environments can be helpful while referencing figures, to move between the figure caption and the text block referring to the figure. Moving between equations is also helpful during the review process, especially while trying to codify notation between sections. The following table shows a breakdown of the navigation grammar for `vimtex`:
 
 | Verb | | Beginning Nouns | | Ending Nouns | |
 | --- | --- | --- | --- | --- | --- |
@@ -161,15 +157,12 @@ The `vimtex` plugin also extends navigation commands for Latex-specific use case
 
 ### Using Snippets {#snippets}
 
-While working on my thesis, I used the [Lyx](https://www.lyx.org/) editor. I appreciated that the dropdown menus on Lyx listed an alternative hotkey for each command, and I was quickly able to transition to hotkeys for producing most of the formatting blocks for figures, tables, etc. The breaking point came for me when I updated my Lyx edition to find the hotkeys still functional, but no longer listed on the dropdown menu. With no clear pathway to re-enabling this feature in the settings, the relevant hotkeys slowly began to fade from my memory. One day I began to wonder if I could not use the same editor for Latex as I did for other programming languages, and found NeoVim admirably suited to the task. The problem Latex creates is a sea of boilerplate code related to labels, sections, figures, tables, and math equations, with the actual content sandwiched in-between these formatting blocks. Using a snippet engine enables me to produce these repetitive blocks of code by using the tab key to expand short key sequences into larger code blocks.
+While working on my thesis, I used the [Lyx](https://www.lyx.org/) editor. I appreciated that the dropdown menus on Lyx listed an alternative hotkey for each command, and I was quickly able to transition to hotkeys for producing most of the formatting blocks for figures, tables, etc. The breaking point came for me when I updated my Lyx edition to find the hotkeys still functional, but no longer listed on the dropdown menu. With no clear pathway to re-enabling this feature in the settings, the relevant hotkeys slowly began to fade from my memory. One day I began to wonder if I could not use the same editor for LaTeX as I did for other programming languages, and found NeoVim admirably suited to the task. The problem LaTeX creates is a sea of boilerplate code related to labels, sections, figures, tables, and math equations, with the actual content sandwiched in-between these formatting blocks. Using a snippet engine enables me to produce these repetitive blocks of code by using the tab key to expand short key sequences into larger code blocks.
 
-Both `ultisnips` and `vim-snippets` include snippet libraries that cover the majority of common use cases for Latex. The best way to learn what is available is to peruse the list of defined snippets, which for `ultisnips` is in `/usr/share/vim/vimfiles/Ultisnips/tex.snippets`, and for `vim-snippets` is in `/usr/share/vim/vimfiles/snippets/tex.snippets` on my linux machine. While editing a latex document in insert mode, pressing the tab key after any of the short codes specified by the word `snippet` will expand to the code below up until the line `endsnippet`. For example, lines 53-56 of `Ultisnips/tex.snippets` define a snippet called `abs` that expands to the beginning and ending code blocks of an abstract environment {{ figref() }}. The `$0` is a special variable that places the user's cursor inside of the code block upon generation, allowing you to immediately begin filling the block with content, either manually or by pasting from the clipboard. 
+Both `ultisnips` and `vim-snippets` include snippet libraries that cover the majority of common use cases for LaTeX. The best way to learn what is available is to peruse the list of defined snippets, which for `ultisnips` is in `/usr/share/vim/vimfiles/Ultisnips/tex.snippets`, and for `vim-snippets` is in `/usr/share/vim/vimfiles/snippets/tex.snippets` on my linux machine. While editing a LaTeX document in insert mode, pressing the tab key after any of the short codes specified by the word `snippet` will expand to the code below up until the line `endsnippet`. For example, lines 53-56 of `Ultisnips/tex.snippets` define a snippet called `abs` that expands to the beginning and ending code blocks of an abstract environment. The `$0` is a special variable that places the user's cursor inside of the code block upon generation, allowing you to immediately begin filling the block with content, either manually or by pasting from the clipboard. 
 
-| ![Abstract Snippet][snip_abs] |
-|:---:|
-| {{ nfig() }} Snippet triggered by `abs+<tab>`. |
+![Abstract Snippet](/snip_abs.png)
 
-[snip_abs]: /snip_abs.png "Abstract Snippet" 
 I use the following lines to set snippet expansion to the tab key in my `init.vim`. For snippets with multiple user-defined fields, the `<ctrl>-j` combination moves the cursor forward by one field and `<ctrl>-k` moves it back by one.
 
 ```vim
@@ -230,7 +223,7 @@ Similarly, the `cite` keyword expands to a cite block with reference fields for 
 
 \end{something}
 ```
-The first insert will overwrite the word "something" in the begin and end braces, and the next will place content inside the block. These snippets cover the common use cases for my latex workflow, but they are only a selection.
+The first insert will overwrite the word "something" in the begin and end braces, and the next will place content inside the block. These snippets cover the common use cases for my LaTeX workflow, but they are only a selection.
 
 The only use case I have found for writing my own snippets is to generate templates for frequently-used document formats like cover letters. Typing the word `memo` followed by tab will expand to a cover letter with my name, the current date, and a link to an image of my signature. Compared to saving a blank letter as a .tex document, and copying and saving a new version for each letter, storing the template as a snippet is easier to use, and I do not risk overwriting my blank copy accidentally. I recommend checking out [jdhao's blog](https://jdhao.github.io/2019/04/17/neovim_snippet_s1/) if you are interested.
 
@@ -245,27 +238,27 @@ cd ~/.vim/plugged/vim-snippets/snippets
 mv tex.snippets tex.snippets.bk
 ```
 
-## Configuring for Latex {#config}
+## Configuring for LaTeX {#config}
 
-My `init.vim` configuration file has the following Latex-specific settings:
+My `init.vim` configuration file has the following LaTeX-specific settings:
 
 ```vim
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" 'plaintex' instead of 'tex', which results in vim-LaTeX not being loaded.
 " The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
+let g:tex_flavor='LaTeX'
 
-let g:latex_indent_enabled = 0 " disable auto-indenting
-let g:latex_fold_envs = 0 " disable line wrapping
-let g:latex_fold_sections = []
+let g:LaTeX_indent_enabled = 0 " disable auto-indenting
+let g:LaTeX_fold_envs = 0 " disable line wrapping
+let g:LaTeX_fold_sections = []
 ```
 
-The section changing the tex flavor to `latex` is copied straight from Stack Overflow, along with the explanatory comment, which may or may not be correct. I have never experimented with the consequences of not using it. Automatic indenting is a bit of a backfire in Latex, inserting additional indents into lists and generally being a nuisance, so I have disabled it by setting the value to zero. Likewise, I have disabled the default line wrapping for environments and sections. For collaborative documents, I like to save line wrapping for the end, to avoid tracking line breaks during the drafting process. Feel free to experiment here.
+The section changing the tex flavor to `LaTeX` is copied straight from Stack Overflow, along with the explanatory comment, which may or may not be correct. I have never experimented with the consequences of not using it. Automatic indenting is a bit of a backfire in LaTeX, inserting additional indents into lists and generally being a nuisance, so I have disabled it by setting the value to zero. Likewise, I have disabled the default line wrapping for environments and sections. For collaborative documents, I like to save line wrapping for the end, to avoid tracking line breaks during the drafting process. Feel free to experiment here.
 
 
 ### Spell Checking {#spell}
 
-Spell check is a basic functionality offered by email and cell phone messaging apps, even fields in web submission forms, and so getting it up and running in Vim is an important feature to compete as a Latex editor. Even for those of us good at spelling, fatigue and haste can contribute a surprising number of errors, and it helps to have the computer double-checking the work. After some investigation into why misspelled words were not highlighted in my display, I discovered that spell-check was enabled and working in Vim the whole time, I just did not understand how to use it. The following four lines of `init.vim` contain all the spell-check specific code:
+Spell check is a basic functionality offered by email and cell phone messaging apps, even fields in web submission forms, and so getting it up and running in Vim is an important feature to compete as a LaTeX editor. Even for those of us good at spelling, fatigue and haste can contribute a surprising number of errors, and it helps to have the computer double-checking the work. After some investigation into why misspelled words were not highlighted in my display, I discovered that spell-check was enabled and working in Vim the whole time, I just did not understand how to use it. The following four lines of `init.vim` contain all the spell-check specific code:
 
 ```vim
 " see https://jdhao.github.io/2019/04/29/nvim_spell_check/
@@ -279,7 +272,7 @@ nnoremap <leader>y :set spell!<cr>
 hi SpellBad cterm=underline guifg=Red
 ```
 
-According to the link referenced in the top comment, including `ckj` will prevent Asian characters from being flagged as misspelled. Then if I quote my favorite poet, Lao Tsu, the block will not be highlighted as an error. Otherwise, I believe English `en` is the default language. The `spellsuggest` field sorts spelling suggestions according to what matches `best`, and I specify seven options for each error. My leader key is currently mapped to the comma key, so `,y` calls the `:set spell` command, which turns spell-check on or off. I do not get a lot of use setting spell-check to a toggle, because in Latex editing I leave spell-check on all the time. Who wouldn't?
+According to the link referenced in the top comment, including `ckj` will prevent Asian characters from being flagged as misspelled. Then if I quote my favorite poet, Lao Tsu, the block will not be highlighted as an error. Otherwise, I believe English `en` is the default language. The `spellsuggest` field sorts spelling suggestions according to what matches `best`, and I specify seven options for each error. My leader key is currently mapped to the comma key, so `,y` calls the `:set spell` command, which turns spell-check on or off. I do not get a lot of use setting spell-check to a toggle, because in LaTeX editing I leave spell-check on all the time. Who wouldn't?
 
 Spelling errors normally display as a wiggly underline, and this has evolved over time into a stable cross-platform convention. For my choice of color palette in the terminal, a dark mode, the colors display in GUI mode (as opposed to text mode). I could not elaborate on the distinction, except to say that the wiggly underline is not available in my specific terminal configuration, so instead I map the highlighting of spelling errors from underline to the color red using the line `hi SpellBad cterm=underline guifg=Red`. Until I made this change I was unable to see spelling errors highlighted, even with spell-check toggled on.
 
@@ -453,7 +446,7 @@ For small documents, I start at the beginning (`gg`) or end (`G`), and scroll up
 
 ![CocList outline](/coclist_outline.png)
 
-My `init.vim` takes heavy inspiration from the [configuration](https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim) file of Jon Gjenset, from the [Crust of Rust](https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa) series.
+My `init.vim` takes heavy inspiration from the [configuration](https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim) file of Jon Gjenset, from the [Crust of Rust](https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa) series. There are general quality of life improvements (not specific to LaTeX) that I have omitted, and large sections that are specific to Rust. The file has grown to several hundred lines of code, but the few lines I have shared here should be enough to set up a LaTeX workflow. Let me know if I missed your favorite plugin, or feel free to share your favorite trick. What is your LaTeX flow?
 
 
 
