@@ -1,0 +1,745 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <!-- FAVICON -->
+      
+      
+      <link href='&#x2F;icons&#x2F;favicon-16x16.png' rel="icon" sizes="16x16" type="image/png" />
+      
+      
+      <link href='&#x2F;icons&#x2F;favicon-32x32.png' rel="icon" sizes="32x32" type="image/png" />
+      
+      
+      <link href='&#x2F;icons&#x2F;android-chrome-512x512.png' rel="android-chrome" sizes="512x512" />
+      
+      
+      <link href='&#x2F;icons&#x2F;android-chrome-192x192.png' rel="android-chrome" sizes="192x192" />
+      
+      
+      <link href='&#x2F;icons&#x2F;apple-touch-icon.png' rel="apple-touch-icon" sizes="180x180" />
+      
+      
+      <link href='&#x2F;icons&#x2F;apple-touch-icon.png' rel="apple-touch-icon" sizes="180x180" />
+      
+
+      <link href="/css/main.css" rel="stylesheet">
+      <link id="syntax_highlight" href="#" rel="stylesheet">
+
+      <title>
+        
+        
+        
+      </title>
+  </head>
+  <body class="dark:bg-gray-700 flex flex-col h-screen justify-between">
+  <!---------------------------------------------------------->
+  <!------------------------- NAVBAR ------------------------->
+  <!---------------------------------------------------------->
+  <nav id="navbar" class="bg-gray-200 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between h-16">
+        <div class="flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button id="toggle-mobile-menu" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <!--
+              Icon when menu is closed.
+              Heroicon name: outline/menu
+              Menu open: "hidden", Menu closed: "block"
+            -->
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <!--
+              Icon when menu is open.
+              Heroicon name: outline/x
+              Menu open: "block", Menu closed: "hidden"
+            -->
+            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex-1 flex items-center">
+          <div class="flex-shrink-0 flex items-center ml-2">
+            <a href="/" class="text-xl text-gray-800 dark:text-white">Strange Inflections</a>
+            <!-- <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+            <img class="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow"> -->
+          </div>
+          <div class="hidden sm:block sm:ml-6">
+            <div class="nav-links flex space-x-4">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              
+                
+                  
+                    <a href="&#x2F;" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                  
+                    <a href="&#x2F;categories" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Articles</a>
+                  
+                    <a href="&#x2F;tags" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Subjects</a>
+                  
+                    <a href="&#x2F;about&#x2F;resume" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Me</a>
+                  
+                
+              
+
+              
+              <!-- More ... Button (sidebar) -->
+              <button id="toggle-sidebar">
+                <svg class="w-7 h-7 text-gray-800 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                </svg>
+              </button>
+              
+            </div>
+          </div>
+
+          
+          <!-- Search input in navbar -->
+          <div class="flex ml-auto relative items-center sm:mr-4">
+            <input id="search" class="rounded-xl border border-black dark:border-gray-200 h-9 text-black dark:text-gray-200 dark:bg-gray-700 w-24 sm:w-full" type="text">
+            <svg class="w-6 h-6 absolute left-2 text-black dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <span class="absolute right-2 hidden sm:block text-gray-400 text-sm leading-5 py-0.5 px-1.5 border border-gray-300 rounded-md">
+              <kbd class="font-sans">
+                <abbr title="Command" class="no-underline">⌘</abbr>
+              </kbd>
+              <kbd class="font-sans">K</kbd>
+            </span>
+          </div>
+
+          <!---------------------------- Search box modal ---------------------------->
+          <!-- inspired by https://www.tailwindtoolbox.com/components/modal -->
+          <div id="search-modal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex z-10">
+            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+
+            <div class="modal-container text-gray-800 bg-gray-200 dark:bg-gray-800 dark:text-gray-400 w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 mt-40 sm:mt-32 h-36 border border-2 border-gray-800 dark:border-gray-400">
+
+              <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+                <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                  <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                </svg>
+                <span class="text-sm">(Esc)</span>
+              </div>
+
+              <!-- Modal Content-->
+              <div class="py-4 text-left px-6 flex flex-col">
+                <!-- Modal Title -->
+                <div class="flex justify-between items-center pb-3">
+                  <p class="text-2xl font-bold">Search</p>
+                  <div class="modal-close cursor-pointer z-50">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Modal Body -->
+                <input id="search-input" class="rounded-xl border border-black h-12 text-bold text-2xl pl-2 text-black dark:text-gray-200 bg-gray-700" type="text">
+                <!-- Search results -->
+                <div id="search-results">
+                  <ul id="results-list" class="flex flex-col justify-center max-h-2xl mt-2 overflow-scroll"></ul>
+                <!--Footer-->
+                <!-- <div class="flex justify-end pt-2">
+                  <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Action</button>
+                  <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+        <!---------------------------- Sidebar Menu ---------------------------->
+        
+          <div id="sidebar" class="nav-links -translate-x-full flex flex-col pt-6 p-2 text-2xl text-black dark:text-gray-200 bg-gray-200 dark:bg-gray-900 transform top-0 left-0 w-64 bg-white fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 shadow-2xl">
+            
+              
+                
+                  <a href="&#x2F;categories" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Articles</a>
+                
+                  <a href="&#x2F;tags" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Subjects</a>
+                
+                  <a href="&#x2F;about&#x2F;resume" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Me</a>
+                
+              
+            
+          </div>
+        
+
+        
+          <!-- Language change button -->
+          <div class="flex p-2 ml-4 relative">
+            <button id="switch-lang" type="button" class="bg-gray-200 text-gray-800 hover:text-gray-900 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+              <svg class="w-6 h-6 bg-gray-200 text-gray-800 hover:text-gray-900 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+              </svg>
+            </button>
+            <div id="switch-lang-panel" class="hidden absolute top-12 -left-1/2 z-10 p-4 rounded-lg divide-y bg-gray-300 dark:bg-gray-800 text-gray-800 dark:text-gray-400 flex flex-col w-28 ">
+              <span class="sr-only">Switch Lang</span>
+              
+                
+                  
+                    <a class="flex justify-center py-2 hover:text-gray-800 dark:hover:text-white" href="&#x2F;">English</a>
+                  
+                
+              
+            </div>
+          </div>
+        
+        <!-- Theme switch button -->
+        <div class="flex p-2">
+          <button id="switch-theme" type="button" class="bg-gray-200 text-gray-800 hover:text-gray-900 dark:bg-gray-800 dark:text-gray-400 dark:hover:text-white p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+            <span class="sr-only">Switch Theme</span>
+            <!-- Heroicon name: outline/light -->
+            <svg id="light" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <!-- Heroicon name: outline/dark -->
+            <svg id="dark" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+
+          <!-- Profile dropdown -->
+          <!-- <div class="ml-3 relative">
+            <div>
+              <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                <span class="sr-only">Open user menu</span>
+                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              </button>
+            </div> -->
+
+            <!--
+              Dropdown menu, show/hide based on menu state.
+
+              Entering: "transition ease-out duration-100"
+                From: "transform opacity-0 scale-95"
+                To: "transform opacity-100 scale-100"
+              Leaving: "transition ease-in duration-75"
+                From: "transform opacity-100 scale-100"
+                To: "transform opacity-0 scale-95"
+            -->
+            <!-- Active: "bg-gray-100", Not Active: "" -->
+            <!-- <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!----------------------------- Mobile menu ----------------------------->
+    <div id="mobile-menu" class="sm:hidden fixed z-10 overflow-hidden">
+      <div class="nav-links flex flex-col space-y-4 items-center w-screen dark:bg-gray-800 transition-all ease-out duration-500 h-0">
+        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        
+          
+            
+              <a href="&#x2F;" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+            
+              <a href="&#x2F;categories" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Articles</a>
+            
+              <a href="&#x2F;tags" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Subjects</a>
+            
+              <a href="&#x2F;about&#x2F;resume" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Me</a>
+            
+          
+        
+
+        
+            
+              
+                
+                  <a href="&#x2F;categories" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Articles</a>
+                
+                  <a href="&#x2F;tags" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Subjects</a>
+                
+                  <a href="&#x2F;about&#x2F;resume" class="text-gray-800 dark:text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Me</a>
+                
+              
+            
+        
+      </div>
+    </div>
+  </nav>
+  <!----------------------------------------------------------->
+  <!------------------------- CONTENT ------------------------->
+  <!----------------------------------------------------------->
+  <main class="max-w-7xl mx-auto text-black dark:text-gray-200 w-full mb-auto">
+    
+<div class="flex">
+   <h1 class="text-2xl text-bold my-6 mx-auto">
+      LaTeX Flow
+    </h1>
+</div>
+<div class="flex gap-x-8">
+  <div class="flex flex-col sm:w-3/4 w-full border border-2 border-gray-200 dark:border-black rounded-xl p-5 shadow-2xl bg-gray-200 dark:bg-gray-800">
+
+    <div class="flex flex-col py-2 justify-center">
+     <!-- <h2 class="text-2xl text-bold"><a href='https:&#x2F;&#x2F;crumplecup.github.io&#x2F;latex-flow&#x2F;'>LaTeX Flow</a></h2> -->
+      <p class="text-bold"></p>
+    </div>
+
+    <!-- Read time and word count -->
+    <div class="flex flex-wrap py-2">
+      <div class="flex items-center w-1/3">
+        <div class="flex flex-col sm:flex-row sm:space-x-3 text-gray-900 dark:text-gray-400">
+          <span class="flex">
+            <!-- Icon clock -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="ml-1">32 min</span>
+          </span>
+          <span class="flex">
+            <!-- Icon pencil -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </svg>
+            <span class="ml-1">6232 words</span>
+          </span>
+        </div>
+      </div>
+      <!-- Author and publish date -->
+      <div class="flex w-2/3 sm:space-x-3 text-gray-900 dark:text-gray-400 justify-end">
+         <span class="flex items-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span class="ml-1"><time datetime="2022-02-25">Published on February 25, 2022</time></span>
+        </span>
+        <span class="flex items-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+          
+            <span class="ml-1">Erik Rose</span>
+            <img class="rounded-full h-9 w-9 ml-1" src="&#x2F;avatar.png" alt="Placeholder text describing the default author&#x27;s avatar.">
+          
+        </span>
+      </div>
+    </div>
+
+    <!-- Categories and Tags -->
+    <div class="flex flex-wrap py-2">
+      <div class="w-2/3">
+        
+          <p>
+            Categories:
+            
+            <a class="text-gray-900 dark:text-gray-400 flex py-1 items-center" href="https://crumplecup.github.io/categories/latex/">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+              <span class="pl-1">LaTeX</span>
+            </a>
+            
+          </p>
+        
+      </div>
+      <div class="w-1/3">
+        
+        <p>
+          Tags:
+          
+          <a class="text-gray-900 dark:text-gray-400 flex py-1 items-center" href="https://crumplecup.github.io/tags/info/">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+            </svg>
+            <span class="pl-1">info</span>
+          </a>
+          
+        </p>
+        
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div id="page-content" class="text-bold mt-2">
+      <h1 id="intro">LaTeX Flow: Editing LaTeX in NeoVim</h1>
+<blockquote>
+<p><br />
+<em>True goodness is like water. 
+Water is good for everything. 
+It doesn't compete. <br />
+It goes right to the low loathsome places, 
+and so finds the way.</em> </p>
+<ul>
+<li>--Lao Tsu <em>Tao Te Ching</em> No. 8
+<br />
+</li>
+</ul>
+</blockquote>
+<p>The <a href="https://pypl.github.io/IDE.html">PYPL</a> index lists <a href="https://code.visualstudio.com/">Visual Studio</a> as the most popular download search with a 30.6% share, and <a href="https://www.jetbrains.com/idea/">IntelliJ</a> ranks sixth with a 6.2% share, yet Vim seems relatively obscure, ranking 12th with a 0.7% share. So why do <a href="https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html">23.6%</a> of Rust programmers use Vim as their code editor, as well as <a href="https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html">24.2%</a> of developers on the latest Stack Overflow survey?</p>
+<p>Having personally admired the flow of developers like Jon Gjenset using Vim on the <a href="https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa">Crust of Rust</a> series, I started exploring and have become quite a fan. After making the switch as my primary code editor, I became curious if I could not also use Vim for producing PDF files using LaTeX. This is not an article about why Vim is awesome, or why you should use Vim, but it does explain <em>how</em> to use Vim to edit LaTeX documents. Setting up Vim as an editing environment can be an involved process, and I found myself pulling nuggets from several sites and cobbling together a Frankenstein configuration. This post consolidates the info from these various sources into a single reference for setting up a LaTeX workflow.</p>
+<p>Since the content is longer than average for a blog post, I have included links to the section headings:</p>
+<p>Table of Contents:</p>
+<ul>
+<li><a href="https://crumplecup.github.io/latex-flow/#editor">Editor of Choice - NeoVim</a>
+<ul>
+<li><a href="https://crumplecup.github.io/latex-flow/#plugins">- Plugin Management</a>
+<ul>
+<li><a href="https://crumplecup.github.io/latex-flow/#lsp">-* Syntax Checking</a> </li>
+<li><a href="https://crumplecup.github.io/latex-flow/#vimtex">-* Compiling and Viewing</a> </li>
+<li><a href="https://crumplecup.github.io/latex-flow/#grammar">-* LaTeX Grammar</a></li>
+<li><a href="https://crumplecup.github.io/latex-flow/#nav">-* LaTeX Navigation</a></li>
+<li><a href="https://crumplecup.github.io/latex-flow/#snippets">-* Using Snippets</a></li>
+</ul>
+</li>
+<li><a href="https://crumplecup.github.io/latex-flow/#config">- Configuring for LaTeX</a>
+<ul>
+<li><a href="https://crumplecup.github.io/latex-flow/#spell">-* Spell Checking</a></li>
+<li><a href="https://crumplecup.github.io/latex-flow/#clipboard">-* Clipboard Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://crumplecup.github.io/latex-flow/#terminal">Terminal of Choice - Alacritty</a>
+<ul>
+<li><a href="https://crumplecup.github.io/latex-flow/#alacritty"> - Configuring Alacritty</a></li>
+<li><a href="https://crumplecup.github.io/latex-flow/#fish"> - Shell of Choice - Fish</a></li>
+</ul>
+</li>
+<li><a href="https://crumplecup.github.io/latex-flow/#multiplex">Multiplexer of Choice - Zellij</a></li>
+<li><a href="https://crumplecup.github.io/latex-flow/#keymaps">Key Mapping</a></li>
+</ul>
+<h2 id=""></h2>
+<h1 id="editor">Editor of Choice - NeoVim</h1>
+<p>Previously I used <a href="https://www.rstudio.com/">RStudio</a> for R and <a href="https://www.jetbrains.com/idea/">IntelliJ</a> for everything code-related. These programs are feature rich, but bloated and heavy, consuming significant amounts of RAM. LaTeX editors that I tried, including <a href="https://www.scribus.net/">Scribus</a>, are light-weight but not feature-rich enough. For my thesis, I used <a href="https://www.lyx.org/">Lyx</a>, but for journal articles I wanted to produce and work directly with <code>.tex</code> files, without detouring through the <code>.lyx</code> format. Although I primarily use LaTeX to format text, the document must be semantically correct in order to build and compile into a PDF, and a code editor seemed like a natural choice to help facilitate this process. </p>
+<p><a href="https://neovim.io/">NeoVim</a> is a current iteration of the storied Vim text editor, modernized to include many of the features of IntelliJ, VSCode and other IDEs, while remaining light-weight, responsive and powerful. Vim works very differently from other text editors, and this can be a good thing, but the lack of common ground with prior experience can slow down the learning process, especially at first.  I recommend the article <a href="https://danielmiessler.com/study/vim/">Learn Vim for the Last Time</a> by Daniel Miessler if you are curious about why or how to use Vim. This article focuses on how to customize your Vim environment for working with LaTeX files.</p>
+<p>Instead of a settings menu, Vim uses a configuration file, allowing maximum flexibility in customization. But if you are not used to mucking around in configuration files, getting your settings just right will take trial and error. On my system with NeoVim, the location in is ~/.config/nvim/init.vim. Learning to use the default configuration is helpful when you are working on new or random machines, but selective customization is key to an ergonomic and productive flow.</p>
+<h2 id="plugins">Plugin Management</h2>
+<p>The preamble of my init.vim file is the plugin invocation. Plugins extend the functionality of Vim for specific use cases. The <a href="https://github.com/junegunn/vim-plug">vim-plug</a> plugin manager is popular and works without issue on my machine (it should also work on MacOS according to <a href="https://dev.to/dafloresdiaz/neovim-for-macos-3nk0">this article</a>). The most relevant plugins for my LaTeX workflow are <a href="https://github.com/lervag/vimtex">vim-tex</a> for compiling tex files to pdfs and displaying them in a viewer, <a href="https://github.com/SirVer/ultisnips">ultisnips</a> for snippet completion, and <a href="https://github.com/prabirshrestha/vim-lsp">vim-lsp</a> for syntax checking.</p>
+<p>Using <a href="https://github.com/junegunn/vim-plug">vim-plug</a> requires separate installation, although you should be able to copy and paste the necessary commands for your system from the instructions on the github site into your terminal. Once installed, use the following code at the start of init.vim to invoke the plugin manager and load the specified plugins.</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; plugin manager junegunn/vim-plug
+</span><span>call </span><span style="color:#8fa1b3;">plug#begin</span><span>(</span><span style="color:#a3be8c;">&#39;~/.vim/plugged&#39;</span><span>)
+</span><span>
+</span><span style="color:#65737e;">&quot; language server protocal
+</span><span>Plug </span><span style="color:#a3be8c;">&#39;prabirshrestha/vim-lsp&#39;
+</span><span>Plug </span><span style="color:#a3be8c;">&#39;mattn/vim-lsp-settings&#39; </span><span style="color:#65737e;">&quot; Installation helper
+</span><span>Plug </span><span style="color:#a3be8c;">&#39;neovim/nvim-lspconfig&#39;
+</span><span>
+</span><span style="color:#65737e;">&quot; text editing
+</span><span>Plug </span><span style="color:#a3be8c;">&#39;lervag/vimtex&#39; </span><span style="color:#65737e;">&quot; compile and display LaTeX
+</span><span>Plug </span><span style="color:#a3be8c;">&#39;SirVer/ultisnips&#39; </span><span style="color:#65737e;">&quot; snippet engine
+</span><span>Plug </span><span style="color:#a3be8c;">&#39;honza/vim-snippets&#39; </span><span style="color:#65737e;">&quot; more snippets
+</span><span>
+</span><span>call </span><span style="color:#8fa1b3;">plug#end</span><span>()
+</span></code></pre>
+<p>The first time starting Vim up, run <code>:PlugInstall</code> from command mode to download and install the plugins on your machine. Remember to run this command again if you add a new plugin to the list at a later time.</p>
+<h3 id="lsp">Syntax Checking</h3>
+<p>The first time opening a file in .tex format, Vim will prompt you to install the LaTeX language server using the command <code>:LspInstallServer</code>. This is a helper function provided by the <a href="https://github.com/mattn/vim-lsp-settings">vim-lsp-settings</a> plugin, and requires the vim-lsp plugin to also be present. The plugin is a one-stop-shop for programming languages, and will prompt the user when a new server is available that supports a given file type (confirm [Y] for installation). Most of the features available are for programming, rather than writing <em>per se</em>. The tab completion features of <a href="https://github.com/neovim/nvim-lspconfig">nvim-lspconfig</a> are of debatable value here, but it is part of my overall setup.</p>
+<p>The real value for LaTeX editing is from syntax checking, which prints compilation errors to the screen in real time, allowing the user to catch common syntax errors as they occur, rather than at compilation time. In the following example, I have commented out the closing center block, and the language server helpfully informs me I have mismatching environments. This is also useful for catching missing braces, and other common formatting errors.</p>
+<p><img src="/lsp_syntax_check.png" alt="Syntax Checking \label{fig:1}" /></p>
+<h3 id="vimtex">Compiling and Viewing</h3>
+<p>The <code>vimtex</code> plugin provides functions for compiling and viewing .tex files. I like to select my own font for cover letters beyond the default serif and standard fonts, but the default compiler did not support the package I used for importing fonts, <code>fontspec</code>. The <code>luaLaTeX</code> engine combined with the <code>nvr</code> compiler works without issue. The <a href="https://mupdf.com/">mupdf</a> reader supports navigation from the home key row using the same key mappings as Vim, providing a seamless transition between the editing and viewing experience. Specify the viewer and compiler options using the following code.</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; changed from defaults for use with the fontspec package
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:vimtex_compiler_progname</span><span> = </span><span style="color:#a3be8c;">&#39;nvr&#39;
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:vimtex_compiler_engine</span><span> = </span><span style="color:#a3be8c;">&#39;luaLaTeX&#39;
+</span><span style="color:#65737e;">&quot; pdf viewer of choice
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:vimtex_view_general_viewer</span><span> = </span><span style="color:#a3be8c;">&#39;mupdf&#39;
+</span></code></pre>
+<p>The language server is a little overly aggressive with specific warnings, tracked here as an <a href="https://github.com/lervag/vimtex/issues/2024">issue</a>. I have included the fix below pasted straight from the post to my <code>init.vim</code> file:</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; prevents spurious warnings
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:vimtex_quickfix_ignore_filters</span><span> = [
+</span><span>      </span><span style="color:#b48ead;">\ </span><span style="color:#a3be8c;">&#39;Underfull&#39;</span><span>,
+</span><span>      </span><span style="color:#b48ead;">\ </span><span style="color:#a3be8c;">&#39;Overfull&#39;</span><span>,
+</span><span>      </span><span style="color:#b48ead;">\</span><span>]
+</span></code></pre>
+<p>The <code>vimtex</code> plugin makes the functions <code>:VimtexCompile</code> and <code>:VimtexView</code> available as Vim commands. Typing these commands manually is not exactly ergonomic, so we map these commands to a select set of hotkeys as an added layer of convenience. In my case, I use the space bar followed by the <code>w</code> key start the compiler, which will build the pdf and open the viewer. The compiler stays open and updates upon changes, but I can stop and restart it by pressing <code>&lt;space&gt;+w</code> repeatedly. I like to quit the viewer when not in active use (using the <code>q</code> key in mupdf), and open a fresh instance when I am ready to review changes, using the space bar followed by the <code>e</code> key. This prevents multiple instances from accumulating in the workspace, and ensures I do not accidentally review versions that are out-of-date.</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; map vimtex view for rapid pdf display
+</span><span style="color:#96b5b4;">nnoremap </span><span>&lt;space&gt;e :VimtexView &lt;CR&gt; 	</span><span style="color:#65737e;">&quot; spacebar + e opens pdf viewer
+</span><span style="color:#96b5b4;">nnoremap </span><span>&lt;space&gt;w :VimtexCompile &lt;CR&gt;	</span><span style="color:#65737e;">&quot; spacebar + w starts/stops compiler
+</span></code></pre>
+<h3 id="grammar">LaTeX Grammar</h3>
+<p>Commands in Vim offer a powerful framework to navigate and manipulate text. A basic grasp of navigation from the home row keys, and the ability to enter insert mode are sufficient to begin using Vim as a text editor, but familiarity with the grammar of Vim commands can enable more efficient actions and increase productivity. The best introduction that I have read to Vim's grammar is Daniel Miessler's <a href="https://danielmiessler.com/study/vim/">Learn Vim for the Last Time</a>, which deserves another mention here. Whenever the task I am working on feels repetitive, I start to wonder if there isn't a Vim command I have not discovered yet that can make my life a bit easier.</p>
+<p>Vimtex extends the types of text objects that Vim recognizes to include LaTeX commands (c), delimiters (d), environments (e) and equations ($), which the user can modify using the inside (i), around (a), and surrounding (s) adjectives, and manipulate using the delete (d), change (c) and yank (y) verbs, as shown in the following table:</p>
+<table><thead><tr><th>Verbs</th><th></th><th>Adjectives</th><th></th><th>Nouns</th><th></th></tr></thead><tbody>
+<tr><td>d</td><td>delete</td><td>i</td><td>inside</td><td>c</td><td>command</td></tr>
+<tr><td>c</td><td>change</td><td>a</td><td>around</td><td>d</td><td>delimiter</td></tr>
+<tr><td>y</td><td>yank</td><td>s</td><td>surrounding</td><td>e</td><td>environment</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>$</td><td>equation</td></tr>
+</tbody></table>
+<p>A common use case in my workflow occurred while reformatting a chapter from my thesis for submission to a journal for publication. Citations in the thesis are organized in a <code>.bib</code> file, but this journal wanted citations listed in <code>\phantomsection</code> blocks at the end of the article. With the <code>.bib</code> file open on one pane, I would copy a correctly formatted citation in the article, then change the author, title and publisher for each new reference to resemble the following:</p>
+<pre data-lang="tex" style="background-color:#2b303b;color:#c0c5ce;" class="language-tex "><code class="language-tex" data-lang="tex"><span style="color:#96b5b4;">\phantomsection
+</span><span style="color:#b48ead;">\label</span><span>{name} Author, Name. (Year) </span><span style="color:#96b5b4;">\textit</span><span>{</span><span style="font-style:italic;color:#b48ead;">Title</span><span>} 
+</span><span>	</span><span style="color:#96b5b4;">\textit</span><span>{</span><span style="font-style:italic;color:#b48ead;">Publisher</span><span>} </span><span style="color:#96b5b4;">\textit</span><span>{</span><span style="font-style:italic;color:#b48ead;">Volume</span><span>} (Number), pages.
+</span></code></pre>
+<p>For the author field, which may contain multiple commas and periods to accommodate multiple authors, the field terminates in a date of publication wrapped in parenthesis. The command <code>ct(</code> (&quot;change to open parenthesis&quot;) deletes the current field up until the publication date begins, and places the cursor in insert mode. Unless there are a significant number of contributors, I am likely to retype the names, rather than copy and paste. The number representing the year counts as a single word in Vim's grammar, so the command <code>ciw</code> (&quot;change inside word&quot;) deletes the current number and places the cursor in insert mode to type a new year. If only a single number is off it can be faster to use the swap (s) key. These are examples of basic Vim commands that come in handy for me.</p>
+<p>The title and publisher fields, however, come wrapped in braces. While Vim is sensitive to delimiters, and the command <code>ci{</code> (&quot;change inside braces&quot;) will delete the content within the braces as expected, neither it nor its cousin <code>ci&quot;</code> (&quot;change inside quotes&quot;) are very ergonomic. Here the delimiter (d) noun from <code>vimtex</code> comes in handy. The title field is often long and technically-worded, making manual retyping prone to error, so I prefer to copy directly from the <code>.bib</code> file and paste into an empty set of braces. First I remove the old title using the command <code>did</code> (&quot;delete inside delimiter&quot;), which clears the contents of the braces while leaving the cursor in command mode. From there, I can directly issue the command to paste the title into the braces (see the section on <a href="https://crumplecup.github.io/latex-flow/#clipboard">Copying and Pasting</a>.</p>
+<h3 id="nav">LaTeX Navigation</h3>
+<p>The <code>vimtex</code> plugin also extends navigation commands for LaTeX-specific use cases. The <code>[[</code> and <code>]]</code> commands move the cursor backwards or forwards by section. This can be a useful way to navigate during the review process, especially when restructuring the table of contents. The <code>[m</code> and <code>]m</code> commands move to the prior or next LaTeX environment, while the <code>[n</code> and <code>]n</code> commands jump between equations. Jumping environments can be helpful while referencing figures, to move between the figure caption and the text block referring to the figure. Moving between equations is also helpful during the review process, especially while trying to codify notation between sections. The following table shows a breakdown of the navigation grammar for <code>vimtex</code>:</p>
+<table><thead><tr><th>Verb</th><th></th><th>Beginning Nouns</th><th></th><th>Ending Nouns</th><th></th></tr></thead><tbody>
+<tr><td><code>[</code></td><td>previous</td><td><code>[</code></td><td>section start</td><td><code>]</code></td><td>section end</td></tr>
+<tr><td><code>]</code></td><td>next</td><td><code>m</code></td><td>environment start</td><td><code>M</code></td><td>environment end</td></tr>
+<tr><td></td><td></td><td><code>n</code></td><td>equation start</td><td><code>N</code></td><td>equation end</td></tr>
+<tr><td></td><td></td><td><code>r</code></td><td>frame start</td><td><code>R</code></td><td>frame end</td></tr>
+<tr><td></td><td></td><td><code>*</code></td><td>comment</td><td></td><td></td></tr>
+</tbody></table>
+<h3 id="snippets">Using Snippets</h3>
+<p>While working on my thesis, I used the <a href="https://www.lyx.org/">Lyx</a> editor. I appreciated that the dropdown menus on Lyx listed an alternative hotkey for each command, and I was quickly able to transition to hotkeys for producing most of the formatting blocks for figures, tables, etc. The breaking point came for me when I updated my Lyx edition to find the hotkeys still functional, but no longer listed on the dropdown menu. With no clear pathway to re-enabling this feature in the settings, the relevant hotkeys slowly began to fade from my memory. One day I began to wonder if I could not use the same editor for LaTeX as I did for other programming languages, and found NeoVim admirably suited to the task. The problem LaTeX creates is a sea of boilerplate code related to labels, sections, figures, tables, and math equations, with the actual content sandwiched in-between these formatting blocks. Using a snippet engine enables me to produce these repetitive blocks of code by using the tab key to expand short key sequences into larger code blocks.</p>
+<p>Both <code>ultisnips</code> and <code>vim-snippets</code> include snippet libraries that cover the majority of common use cases for LaTeX. The best way to learn what is available is to peruse the list of defined snippets, which for <code>ultisnips</code> is in <code>/usr/share/vim/vimfiles/Ultisnips/tex.snippets</code>, and for <code>vim-snippets</code> is in <code>/usr/share/vim/vimfiles/snippets/tex.snippets</code> on my linux machine. While editing a LaTeX document in insert mode, pressing the tab key after any of the short codes specified by the word <code>snippet</code> will expand to the code below up until the line <code>endsnippet</code>. For example, lines 53-56 of <code>Ultisnips/tex.snippets</code> define a snippet called <code>abs</code> that expands to the beginning and ending code blocks of an abstract environment. The <code>$0</code> is a special variable that places the user's cursor inside of the code block upon generation, allowing you to immediately begin filling the block with content, either manually or by pasting from the clipboard. </p>
+<p><img src="/snip_abs.png" alt="Abstract Snippet" /></p>
+<p>I use the following lines to set snippet expansion to the tab key in my <code>init.vim</code>. For snippets with multiple user-defined fields, the <code>&lt;ctrl&gt;-j</code> combination moves the cursor forward by one field and <code>&lt;ctrl&gt;-k</code> moves it back by one.</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:UltiSnipsExpandTrigger</span><span>=</span><span style="color:#a3be8c;">&quot;&lt;tab&gt;&quot;	</span><span style="color:#b48ead;">% </span><span style="color:#96b5b4;">tab</span><span> triggers expansion
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:UltiSnipsJumpForwardTrigger</span><span>=</span><span style="color:#a3be8c;">&quot;&lt;c-j&gt;&quot; </span><span style="color:#b48ead;">%</span><span> move cursor foward one position
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:UltiSnipsJumpBackwardTrigger</span><span>=</span><span style="color:#a3be8c;">&quot;&lt;c-k&gt;&quot; </span><span style="color:#b48ead;">%</span><span> move cursor back one position
+</span></code></pre>
+<p>While in insert mode, I type <code>abs</code> followed by the tab key:</p>
+<p><img src="/snip_abs_before.png" alt="Abstract Snippet Before" /></p>
+<p>This results in the following expansion, with my cursor centered within the block ready to enter content:</p>
+<p><img src="/snip_abs_after.png" alt="Abstract Snippet After" /></p>
+<p>The keywords <code>enum</code>, <code>item</code> and <code>desc</code> similarly create the opening and closing blocks for the enumerate, itemize and description environments, respectively. These lists default to having a single <code>\item</code>, and the keyword <code>it</code> expands to add an additional <code>\item</code>. For code blocks that include bracketed optional arguments, pressing the delete key will remove the optional parameters. For instance, the <code>pac</code> keyword expands to the line:</p>
+<p><img src="/snip_pac1.png" alt="Package Snippet Before" /></p>
+<p>The first cursor position snaps to the inside of the brackets for the optional package argument. Here the delete key will remove the brackets as well as the text. The forward trigger (<code>&lt;ctrl&gt;+j</code>) moves the cursor to the next user-defined parameter, in this case the package name (which I have changed to <code>fontspec</code>), and then advances the cursor to immediately after the closing brace:</p>
+<p><img src="/snip_pac2.png" alt="Package Snippet After" /></p>
+<p>The <code>fig</code> keyword is one of the more useful snippets in my workflow, because it includes a sensible level of default formatting, including centering, a label, and image width capped to 80% of page width. Here I have edited the default image name to <code>mypic.png</code> to illustrate that the figure caption and label both mirror the selected image name, with the start of the caption capitalized. This is not a useful feature to me for captions, but I use it regularly to set label names based on image file names:</p>
+<p><img src="/snip_fig.png" alt="Figure Snippet" /></p>
+<p>When there is user-defined text in snippet code blocks, the cursor moves through a predefined sequence of fields to receive input from the user. At this time, Vim in is insert mode, and anything you type will appear on the keyboard verbatim. For options, a sensible default appears (e.g. <code>width=0.8\linewidth</code>) whereas field names tend to be descriptive (e.g. <code>\label{fig:name}</code>. If you type something, this will overwrite the default value. Advancing the cursor either commits your changes or preserves the default as-is. Vim returns to command mode only after traversing through all the user-generated fields in the invoked snippet. If you want to amend the default in a field, you can press the tab key to keep the default and enter command mode, where you can edit it, but this does not cancel the rest of the generation process, and the forward trigger will still move the cursor to the next field in the call order if additional cursor points remain. Use the escape key if you want to abort midway through.</p>
+<p>The <code>cha</code>, <code>sec</code>, <code>sub</code>, <code>ssub</code> and <code>par</code> keywords expand to chapter, section, subsection, sub-subsection and paragraph blocks respectively, starting with the cursor positioned inside the title braces. Variants ending in asterisks (e.g. <code>sec*</code>) expand to unnumbered blocks. Although the keyword <code>tab</code> will generate an empty tabular environment, I prefer to the use the <code>gentbl</code> keyword, followed by the dimensions of the table in format <code>WIDTHxHEIGHT</code>. For producing a table with three rows and columns, I would enter the following text in insert mode, followed by the tab key to trigger snippet expansion:</p>
+<p><img src="/snip_gentbl.png" alt="Table Generator Snippet Trigger" /></p>
+<p>This expands to the following code, with cursor points at each blank field:</p>
+<p><img src="/snip_gentbl2.png" alt="Table Generator Snippet Result" /></p>
+<p>When typing freely, I tend to forget the forward slashes at the end of rows, so starting with a syntactically correct table is helpful for me. Similarly, the characters <code>tr</code> followed by a number will expand to a table row with the corresponding number of fields.</p>
+<p>The keywords <code>eq</code>, <code>eql</code> and <code>eq*</code> expand to a numbered equation block, without and with a label, and an unnumbered equation block respectively. The <code>frac</code> keyword expands to <code>\frac{}{}</code>, with the added benefit of moving the cursor from the numerator to the denominator on forward trigger, and <code>sum</code> works similarly. The characters <code>ls</code> expand to <code>\left{} \right{}</code>, and for the delimiters <code>(</code>, <code>|</code>, <code>{</code> and <code>[</code> the pattern <code>ls*</code> expands to <code>\left* \right*</code>, using the appropriate closing delimiter, and placing the cursor in the center of the block.</p>
+<p>While the shorter <code>fig</code> and <code>tab</code> keywords expand to the block environments, using the complete words <code>figure</code> and <code>table</code> will expand to references including the appropriate leading word, so:</p>
+<pre data-lang="tex" style="background-color:#2b303b;color:#c0c5ce;" class="language-tex "><code class="language-tex" data-lang="tex"><span>figure
+</span></code></pre>
+<p>becomes:</p>
+<pre data-lang="tex" style="background-color:#2b303b;color:#c0c5ce;" class="language-tex "><code class="language-tex" data-lang="tex"><span>Figure</span><span style="color:#d08770;">~</span><span style="color:#b48ead;">\ref</span><span>{</span><span style="color:#d08770;">fig:</span><span>}
+</span></code></pre>
+<p>Similarly, the <code>cite</code> keyword expands to a cite block with reference fields for a <code>.bib</code> file, and <code>url</code> expands to <code>\url{}</code>. Here the purpose is less to reduce keystrokes than the use of the less ergonomic <code>\</code> <code>{</code> and <code>}</code> keys, and the occurrence of dangling delimiters or missing end blocks. Along this vein, the lone character <code>b</code> followed by the tab key expands to:</p>
+<pre data-lang="tex" style="background-color:#2b303b;color:#c0c5ce;" class="language-tex "><code class="language-tex" data-lang="tex"><span style="color:#b48ead;">\begin</span><span>{something}
+</span><span>
+</span><span style="color:#b48ead;">\end</span><span>{something}
+</span></code></pre>
+<p>The first insert will overwrite the word &quot;something&quot; in the begin and end braces, and the next will place content inside the block. These snippets cover the common use cases for my LaTeX workflow, but they are only a selection.</p>
+<p>The only use case I have found for writing my own snippets is to generate templates for frequently-used document formats like cover letters. Typing the word <code>memo</code> followed by tab will expand to a cover letter with my name, the current date, and a link to an image of my signature. Compared to saving a blank letter as a .tex document, and copying and saving a new version for each letter, storing the template as a snippet is easier to use, and I do not risk overwriting my blank copy accidentally. I recommend checking out <a href="https://jdhao.github.io/2019/04/17/neovim_snippet_s1/">jdhao's blog</a> if you are interested.</p>
+<p>On my system, an interesting hiccup occurs when installing <code>vim-snippets</code>, where invoking a snippet triggers a duplicate resolution menu. For example, pressing tab after <code>eq</code> provokes the response:</p>
+<p><img src="/vim_snippets_dupe.png" alt="Duplicate Snippet Menu" /></p>
+<p>The reason this occurred is that the snippet file was copied into two places on my system, once in the home directory under <code>.vim/plugged/vim-snippets/snippets</code> and again in the general file system in <code>/usr/share/vimfiles/snippets</code>. If you run into a similar issue with duplicate snippets, you can change the name of the file in your home directory to a name other than <code>tex.snippets</code>, which should prevent it from associating with .tex files. For instance, on my machine I use the following lines of code to the resolve the issue:</p>
+<pre data-lang="fish" style="background-color:#2b303b;color:#c0c5ce;" class="language-fish "><code class="language-fish" data-lang="fish"><span style="color:#bf616a;">cd </span><span>~/.vim/plugged/vim-snippets/snippets
+</span><span style="color:#bf616a;">mv </span><span>tex.snippets tex.snippets.bk
+</span></code></pre>
+<h2 id="config">Configuring for LaTeX</h2>
+<p>My <code>init.vim</code> configuration file has the following LaTeX-specific settings:</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+</span><span style="color:#65737e;">&quot; &#39;plaintex&#39; instead of &#39;tex&#39;, which results in vim-LaTeX not being loaded.
+</span><span style="color:#65737e;">&quot; The following changes the default filetype back to &#39;tex&#39;:
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:tex_flavor</span><span>=</span><span style="color:#a3be8c;">&#39;LaTeX&#39;
+</span><span>
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:LaTeX_indent_enabled</span><span> = </span><span style="color:#d08770;">0 </span><span style="color:#65737e;">&quot; disable auto-indenting
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:LaTeX_fold_envs</span><span> = </span><span style="color:#d08770;">0 </span><span style="color:#65737e;">&quot; disable line wrapping
+</span><span style="color:#96b5b4;">let </span><span style="color:#bf616a;">g:LaTeX_fold_sections</span><span> = []
+</span></code></pre>
+<p>The section changing the tex flavor to <code>LaTeX</code> is copied straight from Stack Overflow, along with the explanatory comment, which may or may not be correct. I have never experimented with the consequences of not using it. Automatic indenting is a bit of a backfire in LaTeX, inserting additional indents into lists and generally being a nuisance, so I have disabled it by setting the value to zero. Likewise, I have disabled the default line wrapping for environments and sections. For collaborative documents, I like to save line wrapping for the end, to avoid tracking line breaks during the drafting process. Feel free to experiment here.</p>
+<h3 id="spell">Spell Checking</h3>
+<p>Spell check is a basic functionality offered by email and cell phone messaging apps, even fields in web submission forms, and so getting it up and running in Vim is an important feature to compete as a LaTeX editor. Even for those of us good at spelling, fatigue and haste can contribute a surprising number of errors, and it helps to have the computer double-checking the work. After some investigation into why misspelled words were not highlighted in my display, I discovered that spell-check was enabled and working in Vim the whole time, I just did not understand how to use it. The following four lines of <code>init.vim</code> contain all the spell-check specific code:</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; see https://jdhao.github.io/2019/04/29/nvim_spell_check/
+</span><span style="color:#65737e;">&quot; spell-check
+</span><span style="color:#96b5b4;">set</span><span> spell spelllang=en,cjk
+</span><span style="color:#65737e;">&quot; limit spelling suggestions to n
+</span><span style="color:#96b5b4;">set</span><span> spellsuggest=best,</span><span style="color:#d08770;">7
+</span><span style="color:#65737e;">&quot; map spell-check toggle
+</span><span style="color:#96b5b4;">nnoremap </span><span>&lt;leader&gt;y :</span><span style="color:#96b5b4;">set</span><span> spell!&lt;cr&gt;
+</span><span style="color:#65737e;">&quot; highlight misspelled words in red
+</span><span>hi SpellBad cterm=underline guifg=Red
+</span></code></pre>
+<p>According to the link referenced in the top comment, including <code>ckj</code> will prevent Asian characters from being flagged as misspelled. Then if I quote my favorite poet, Lao Tsu, the block will not be highlighted as an error. Otherwise, I believe English <code>en</code> is the default language. The <code>spellsuggest</code> field sorts spelling suggestions according to what matches <code>best</code>, and I specify seven options for each error. My leader key is currently mapped to the comma key, so <code>,y</code> calls the <code>:set spell</code> command, which turns spell-check on or off. I do not get a lot of use setting spell-check to a toggle, because in LaTeX editing I leave spell-check on all the time. Who wouldn't?</p>
+<p>Spelling errors normally display as a wiggly underline, and this has evolved over time into a stable cross-platform convention. For my choice of color palette in the terminal, a dark mode, the colors display in GUI mode (as opposed to text mode). I could not elaborate on the distinction, except to say that the wiggly underline is not available in my specific terminal configuration, so instead I map the highlighting of spelling errors from underline to the color red using the line <code>hi SpellBad cterm=underline guifg=Red</code>. Until I made this change I was unable to see spelling errors highlighted, even with spell-check toggled on.</p>
+<p>Using the <code>s</code> key following the <code>[</code> or <code>]</code> brackets moves the cursor to the previous or next spelling error. The command <code>z=</code> will bring up a list of suggested corrections, while <code>zg</code> will enter the flagged word into the dictionary, so it will no longer appear as an error. The following table summarizes commands related to spell-check:</p>
+<table><thead><tr><th>Command</th><th>Action</th></tr></thead><tbody>
+<tr><td><code>[s</code></td><td>to previous error</td></tr>
+<tr><td><code>]s</code></td><td>to next error</td></tr>
+<tr><td><code>z=</code></td><td>show fix options</td></tr>
+<tr><td><code>zg</code></td><td>add to dictionary</td></tr>
+</tbody></table>
+<p>If I type the sentence:</p>
+<p><img src="/spell_accom1.png" alt="Spelling Mistake" /></p>
+<p>Then the misspelled word becomes highlighted in red. Pressing <code>[s</code> sends the cursor back to the misspelled word, and <code>z=</code> enters the options menu for spelling alternatives, as follows:</p>
+<p><img src="/spell_accom2.png" alt="Spelling Options" /></p>
+<h3 id="clipboard">Clipboard Integration</h3>
+<p>Copy and paste is another basic functionality that needs to work in any credible editor. Vim offers the yank (<code>y</code>) and paste (<code>p</code>) commands, and these work as expected within a single instance of the program. The yank command (as well as delete <code>d</code>) copies the selected text into a buffer. The user can store text in multiple buffers, which I have not found much use, but I often want to paste the contents of this buffer to another program, and this I cannot do, even for another instance of Vim. This can also be a problem when trying to copy text into Vim from another program, like a web browser, because the text buffer in Vim does not check the contents of the desktop clipboard. </p>
+<p>On Linux, I call the xsel command to copy or paste from the clipboard, with copying mapped to <code>&lt;space&gt;+c</code> and pasting mapped to <code>&lt;space&gt;+p</code>, using the following code:</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; clipboard integration
+</span><span style="color:#96b5b4;">noremap </span><span>&lt;space&gt;p :read !xsel --clipboard --output&lt;cr&gt;
+</span><span style="color:#96b5b4;">noremap </span><span>&lt;space&gt;c :w !xsel -ib&lt;cr&gt;&lt;cr&gt;
+</span></code></pre>
+<p>On MacOS, enable copy and paste from the clipboard using the following line in your <code>init.vim</code> (from <a href="https://www.alanwsmith.com/posts/20eojqbbmsua--copy-and-paste-between-neovimvim-and-other-apps-on-mac-os">Alan Smith</a>):</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#96b5b4;">set</span><span> clipboard=unnamed
+</span></code></pre>
+<p>Instead of calling <code>xsel</code>, MacOS users will want to use the <code>pbcopy</code> and <code>pbpaste</code> <a href="https://osxdaily.com/2007/03/05/manipulating-the-clipboard-from-the-command-line/">commands</a> (via <a href="https://stackoverflow.com/questions/28857592/xsel-o-equivalent-for-os-x">Stack Overflow</a>).</p>
+<p>Running the command <code>:CheckHealth</code> will print a diagnostic for the clipboard, indicating if it is enabled. On my machine the output is as follows:</p>
+<p><img src="/check_health_clipboard.png" alt="Check Health Clipboard" /></p>
+<h1 id="terminal">Terminal of Choice - Alacritty</h1>
+<p>NeoVim opens in the terminal, and so the terminal application you use can greatly impact the editing experience. <a href="https://alacritty.org/">Alacritty</a> is currently <a href="https://itsfoss.com/linux-terminal-emulators/">#8</a> on ItsFOSS's top 14 terminal programs, and <a href="https://linuxhint.com/best_7_linux_terminals/">#1</a> at linuxhunt.com's list of top seven terminals, which notes that it has been the most trending linux terminal since its debut in 2017. A main selling point is being cross-platform - it should work without issue on MacOS and Windows. Initially, I got interested in Alacritty because it is written in Rust, the same language I use for doing research. But Alacritty is a terminal, and even the configuration file is in <code>yaml</code> format and not <code>toml</code>, so I wouldn't learn any Rust by using it. However, it integrates well with my shell, multiplexer, and editor, and has several features I have grown to like.</p>
+<h2 id="alacritty">Configuring Alacritty</h2>
+<p>The configuration file for Alacritty on linux in <code>~/.config/alacritty/alacritty.yml</code>. One of the things I like about Alacritty is that I do not have to change much to get a setup I like. Accessing the terminal history using scrollback is a key feature for me, and if it is not set by default, the following lines will create a scrollback buffer that will hold up to 10,000 lines.</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">scrolling</span><span>:
+</span><span style="color:#65737e;"># Maximum number of lines in the scrollback buffer.
+</span><span>  </span><span style="color:#65737e;"># Specifying &#39;0&#39; will disable scrolling.
+</span><span>  </span><span style="color:#bf616a;">history</span><span>: </span><span style="color:#d08770;">10000
+</span></code></pre>
+<p>To adjust the window opacity, amend the following lines in <code>alacritty.yml</code>:</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#65737e;"># Background opacity
+</span><span style="color:#65737e;">#
+</span><span style="color:#65737e;"># Window opacity as a floating point number from `0.0` to `1.0`.
+</span><span style="color:#65737e;"># The value `0.0` is completely transparent and `1.0` is opaque.
+</span><span style="color:#bf616a;">window</span><span>:
+</span><span>  </span><span style="color:#bf616a;">opacity </span><span>: </span><span style="color:#d08770;">0.85
+</span></code></pre>
+<p>The default color scheme is a dark mode, and the only tweak I have made is to darken the yellow to increase legibility:</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>  </span><span style="color:#65737e;"># Normal colors
+</span><span>  </span><span style="color:#bf616a;">normal</span><span>:
+</span><span>    </span><span style="color:#bf616a;">black</span><span>:   &#39;</span><span style="color:#a3be8c;">#1d1f21</span><span>&#39;
+</span><span>    </span><span style="color:#bf616a;">red</span><span>:     &#39;</span><span style="color:#a3be8c;">#cc6666</span><span>&#39;
+</span><span>    </span><span style="color:#bf616a;">green</span><span>:   &#39;</span><span style="color:#a3be8c;">#b5bd68</span><span>&#39;
+</span><span>    </span><span style="color:#bf616a;">yellow</span><span>:  &#39;</span><span style="color:#a3be8c;">#ffd900</span><span>&#39; </span><span style="color:#65737e;"># darker, more readable mustard
+</span><span>      </span><span style="color:#65737e;"># yellow:  &#39;#f0c674&#39; # older lighter, sun yellow
+</span><span>    </span><span style="color:#bf616a;">blue</span><span>:    &#39;</span><span style="color:#a3be8c;">#81a2be</span><span>&#39;
+</span><span>    </span><span style="color:#bf616a;">magenta</span><span>: &#39;</span><span style="color:#a3be8c;">#b294bb</span><span>&#39;
+</span><span>    </span><span style="color:#bf616a;">cyan</span><span>:    &#39;</span><span style="color:#a3be8c;">#8abeb7</span><span>&#39;
+</span><span>    </span><span style="color:#bf616a;">white</span><span>:   &#39;</span><span style="color:#a3be8c;">#c5c8c6</span><span>&#39;
+</span></code></pre>
+<p>To initiate a new work session, I like to start a new terminal instance, and for my terminal multiplexer to open by default. The following lines in <code>alacritty.yml</code> will open <a href="https://zellij.dev/">Zellij</a> on start, and set the shell to <a href="https://fishshell.com/">Fish</a>:</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">shell</span><span>:
+</span><span>  </span><span style="color:#bf616a;">program</span><span>: </span><span style="color:#a3be8c;">/usr/bin/zellij
+</span><span>  </span><span style="color:#bf616a;">args</span><span>:
+</span><span>    - </span><span style="color:#a3be8c;">options
+</span><span>    - </span><span style="color:#a3be8c;">--default-shell 
+</span><span>    - </span><span style="color:#a3be8c;">fish 
+</span></code></pre>
+<p>On MacOS the <code>program</code> path will be <code>~/.cargo/bin/zellij</code> if you have installed Zellij using <code>cargo</code>.</p>
+<h2 id="fish">Shell of Choice - Fish</h2>
+<p>I typically invoke NeoVim from the command line by typing <code>nvim</code> followed by a file path name. NeoVim will create an empty file at the location if none exists. The default command line shell is bash, and I still switch to bash when copying arcane scripts from Stack Overflow, because Fish references environmental variables with slightly different grammar, but overall I like the addition of tab completion and pretty colors.</p>
+<p>Compare opening a research paper in the Fish shell, where I can either use the right arrow key to accept the suggested path completion based on my history, or press tab to open a completion menu below, as shown here:</p>
+<p><img src="/fish_nvim2.png" alt="Fish nvim" /></p>
+<p>Bash also offers tab completion, but without foreshadowing. Pressing tab once will expand the path name, and a second tab will print a path menu, which looks as follows in our example:</p>
+<p><img src="/bash_nvim2.png" alt="Bash nvim" /></p>
+<p>I know which I prefer.</p>
+<p>Recently, I tried using <a href="https://www.nushell.sh/">nushell</a>, following the <a href="https://dev.to/yjdoc2/completely-oxidizing-my-terminal-setup-43d8">blog post</a> by YJDoc2. Although the shell worked in isolation on my machine, when integrating with Zellij it opened multiple terminals (flooding my system), and I was unable to diagnose the issue or mitigate the problem. Fish is <a href="https://linuxhint.com/top-5-open-source-shells-linux/">#5</a> on the top five terminal shells from linuxhint.com, whereas fosslinux.com lauds the <a href="https://zsh.sourceforge.io/">Zsh shell</a> for &quot;brilliant autocompletion&quot;, and Fish does not even make the list, so maybe I am missing out by not giving it a try.</p>
+<h1 id="multiplex">Multiplexer of Choice - Zellij</h1>
+<p>Initially I used <a href="https://github.com/tmux/tmux/wiki">tmux</a> for organizing multiple open terminals, and I enjoy the ability to sort my screens into new windows or additional panes without the use of the mouse. <a href="https://zellij.dev/">Zellij</a> improves the user interface by displaying a hotkey menu at the bottom of the window, making navigation more intuitive:</p>
+<p><img src="/zellij_menu.png" alt="Zellij Menu" /></p>
+<p>The control key triggers the majority of Zellij commands, with a context-dependent menu opening on the second line based upon which mode the user selects. The pane mode manages multiple prompts within a single window, while the tab mode manages prompts in multiple windows. The alt key triggers navigation of panes and tabs using the same home row keys as Vim.</p>
+<p>Even when I am focused on writing new content, I am likely to leave the snippet file open as a reference. When copying and pasting from another file, in my case from a bibliography file to an article, I open the reference file in a third pane. Unrelated workflow goes in additional tabs, and I can visually track the active tab using the indicator at the top of the window:</p>
+<p><img src="/zellij_workspace.png" alt="Zellij Workspace" /></p>
+<p>The active terminal is highlighted in green. When accessing pane, tab, resize or any of the other modes using the control key followed by the appropriate trigger, the active terminal becomes orange and the context menu changes to show available commands. Typically, pressing enter is sufficient to drop out of this command mode and go back to typing into the prompt.</p>
+<p>The documentation details how to modify keybindings and color themes in <code>~/.config/zellij/config.yaml</code>, but I have not adjusted any of the default settings. I have already set the colors in <code>alacritty.yml</code>, and because the user interface for Zellij is so well thought-out, I leave the key bindings as-is, and adjust my key maps in Vim so they do not conflict. I find myself wishing NeoVim offered a similarly visual menu of the available hotkey commands, but a terminal multiplexer covers a relatively narrow range of functions, and I am not sure how a visual menu could adapt to the degree of customization that key bindings receive in a typical Vim configuration file.</p>
+<h1 id="keymaps">Key Mapping</h1>
+<p>Since NeoVim operates inside a multiplexer inside my terminal, I have to take care that the random key maps that I copy from the internet do not reuse any mappings set in Zellij. Generally, I find the <code>control</code> and <code>alt</code> keys come heavily loaded as hot keys, with some plugins adding new mappings by defaults. The <code>space</code> bar is my favorite command leader because it often has no use in Vim command mode, yet is ergonomic to use (being the home key of the thumb). You can specify a key of choice as <code>mapleader</code>, and then refer to it in mappings as the <code>&lt;leader&gt;</code> key. The <code>space</code> bar, <code>control</code> and <code>alt</code> are natural leaders, so I refer to them by name, but I like to set the <code>mapleader</code> as a catch-all for commands that do not map to a named leader. Using the key word <code>&lt;leader&gt;</code> to trigger commands allows me to experiment with alternate configurations by changing the single line where I designate the <code>mapleader</code> (currently set to the comma key):</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; set &lt;leader&gt; key
+</span><span style="color:#96b5b4;">let</span><span> mapleader = </span><span style="color:#a3be8c;">&quot;,&quot;
+</span><span>
+</span><span style="color:#65737e;">&quot; change Ctrl+j to Esc
+</span><span style="color:#96b5b4;">nnoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span><span style="color:#96b5b4;">inoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span><span style="color:#96b5b4;">vnoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span><span style="color:#96b5b4;">snoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span><span style="color:#96b5b4;">xnoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span><span style="color:#96b5b4;">cnoremap </span><span>&lt;C-j&gt; &lt;C-c&gt;
+</span><span style="color:#96b5b4;">onoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span><span style="color:#96b5b4;">lnoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span><span style="color:#96b5b4;">tnoremap </span><span>&lt;C-j&gt; &lt;Esc&gt;
+</span></code></pre>
+<p>My favorite key map, and the one I miss the quickest when using default Vim, is setting <code>&lt;ctrl&gt;+j</code> equivalent to hitting the escape key. I find putting the escape key on the home row ergonomic and intuitive. The character salad of remap statements refer to different modes, and help make the behaviour of the <code>&lt;ctrl&gt;+j</code> combination consistent in different settings.</p>
+<p>Some commands, like write (<code>:w</code>) and quit (<code>:q</code>) are such common use cases that I find it helpful to map the semicolon to the colon, allowing me to enter commands without using the shift key. Since I mapped the commands to move the cursor to the beginning or end of a line to the home keys <code>H</code> and <code>L</code> respectively, I make frequent use of them.</p>
+<pre data-lang="vim" style="background-color:#2b303b;color:#c0c5ce;" class="language-vim "><code class="language-vim" data-lang="vim"><span style="color:#65737e;">&quot; avoid &lt;shift&gt; when typing commands
+</span><span style="color:#96b5b4;">nnoremap</span><span> ; : </span><span style="color:#65737e;">&quot; pressing ; reads as :
+</span><span>
+</span><span style="color:#96b5b4;">map</span><span> H ^ </span><span style="color:#65737e;">&quot; pressing H moves cursor to beginning of line
+</span><span style="color:#96b5b4;">map</span><span> L $ </span><span style="color:#65737e;">&quot; pressing L moves cursor to end of line
+</span><span>
+</span><span style="color:#65737e;">&quot; Find symbol of current document.
+</span><span style="color:#96b5b4;">nnoremap </span><span>&lt;silent&gt; &lt;space&gt;o  :&lt;C-u&gt;CocList outline&lt;cr&gt;
+</span></code></pre>
+<p>For small documents, I start at the beginning (<code>gg</code>) or end (<code>G</code>), and scroll up or down by half pages using <code>&lt;ctrl&gt;+u</code> and <code>&lt;ctrl&gt;+d</code> to arrive at the area of interest. But as a text grows in size and complexity, this method becomes increasingly inefficient. The <code>CocList outline</code> function, which I have mapped to <code>&lt;space&gt;+o</code>, produces a list of sections, subjections, figures, tables and equations, which the user can navigate to using the arrow keys for selection, or by searching for a text string:</p>
+<p><img src="/coclist_outline.png" alt="CocList outline" /></p>
+<p>My <code>init.vim</code> takes heavy inspiration from the <a href="https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim">configuration</a> file of Jon Gjenset, from the <a href="https://www.youtube.com/playlist?list=PLqbS7AVVErFiWDOAVrPt7aYmnuuOLYvOa">Crust of Rust</a> series. There are general quality of life improvements (not specific to LaTeX) that I have omitted, and large sections that are specific to Rust. The file has grown to several hundred lines of code, but the few lines I have shared here should be enough to set up a LaTeX workflow. Let me know if I missed your favorite plugin, or feel free to share your favorite trick. What is your LaTeX flow?</p>
+
+    </div>
+
+
+
+  </div>
+
+
+    <!-- Table of content -->
+    
+
+
+</div>
+
+  </main>
+
+  <!----------------------------------------------------------->
+  <!------------------------- PAGINATION ---------------------->
+  <!----------------------------------------------------------->
+  
+
+
+
+  <!---------------------------------------------------------->
+  <!------------------------- FOOTER ------------------------->
+  <!---------------------------------------------------------->
+  <footer class="max-w-7xl mx-auto relative pt-1 px-2 border-b-2 border-gray-300 dark:border-gray-200 w-full">
+    <!-- <div class="container mx-auto px-6">
+      <div class="sm:flex sm:mt-8">
+        <div class="mt-8 sm:mt-0 sm:w-full sm:px-8 flex flex-col md:flex-row justify-between">
+          <div class="flex flex-col">
+            <span class="font-bold text-gray-700 uppercase mb-2">Footer header 1</span>
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-gray-700 uppercase mt-4 md:mt-0 mb-2">Footer header 2</span>
+            <span class="my-2"><a href="#" class="text-blue-700 text-md hover:text-blue-500">link 1</a></span>
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+            <span class="my-2"><a href="#" class="text-blue-700 text-md hover:text-blue-500">link 1</a></span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-bold text-gray-700 uppercase mt-4 md:mt-0 mb-2">Footer header 3</span>
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+            <span class="my-2"><a href="#" class="text-blue-700  text-md hover:text-blue-500">link 1</a></span>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="mt-16 border-t-2 border-gray-300 flex flex-col items-center">
+      <div class="sm:w-2/3 text-center py-6">
+        <p class="text-sm text-black dark:text-white font-bold mb-2">
+          © 2021 blow theme made with <a href="https://tailwindcss.com/" target="_blank">tailwindcss</a> for <a href="https://www.getzola.org/" target="_blank">Zola</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!------------------------- SCRIPTS ------------------------->
+  <script defer src="/js/main.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+    <script src="/search_index.en.js"></script>
+    <script defer src="/js/search.js"></script>
+  
+  
+    <script defer src="/js/lang.js"></script>
+  
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=myclientid"
+     crossorigin="anonymous"></script>
+  
+  
+  <script defer src="/js/page.js"></script>
+
+  </body>
+</html>
