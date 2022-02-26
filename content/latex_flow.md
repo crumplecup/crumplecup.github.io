@@ -90,7 +90,7 @@ The real value for LaTeX editing is from syntax checking, which prints compilati
 
 ### Compiling and Viewing {#vimtex}
 
-The `vimtex` plugin provides functions for compiling and viewing .tex files. I like to select my own font for cover letters beyond the default serif and standard fonts, but the default compiler did not support the package I used for importing fonts, `fontspec`. The `luaLaTeX` engine combined with the `nvr` compiler works without issue. The [mupdf](https://mupdf.com/) reader supports navigation from the home key row using the same key mappings as Vim, providing a seamless transition between the editing and viewing experience. Specify the viewer and compiler options using the following code.
+The `vimtex` plugin provides functions for compiling and viewing .tex files. I like to select my own font for cover letters beyond the standard serif and monospace fonts, but the compiler did not support the package I used for importing fonts, `fontspec`. The `luaLaTeX` engine combined with the `nvr` compiler works without issue. The [mupdf](https://mupdf.com/) reader supports navigation from the home key row using the same key mappings as Vim, providing a seamless transition between the editing and viewing experience. Specify the viewer and compiler options using the following code.
 
 ```vim
 " changed from defaults for use with the fontspec package
