@@ -1,6 +1,6 @@
 +++
 title = "Latex Flow"
-date = 2022-02-04
+date = 2022-02-25
 [taxonomies]
 categories = ["Latex"]
 tags = ["info"]
@@ -11,7 +11,8 @@ author = "Erik Rose"
 
 # Latex Flow: Editing Latex in NeoVim {#intro}
 
-[23.6%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of Rust programmers use Vim as their code editor, as well as [24.2%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of developers on the latest Stack Overflow survey.
+The [PYPL](https://pypl.github.io/IDE.html) index lists Visual Studio as the most popular download search with a 30.6% share, while IntelliJ ranks sixth with a 6.2% share, and Vim seems relatively obscure, ranking 12th with a 0.7% share. So why do [23.6%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of Rust programmers use Vim as their code editor, as well as [24.2%](https://blog.rust-lang.org/2020/04/17/Rust-survey-2019.html) of developers on the latest Stack Overflow survey?
+
 
 Table of Contents:
 
